@@ -10,13 +10,29 @@ import {
   PhoneCall,
   ShieldAlert,
   Compass,
-  PlusCircle,
+  ArrowRight,
+  Calculator,
+  Scale,
+  Store,
+  Pill,
+  Hospital,
+  Building2,
   Landmark,
-  TrendingUp,
+  Wrench,
+  Flame,
+  Sparkles,
+  Presentation,
+  Coins,
+  KeyRound,
+  Briefcase,
+  Building,
+  Hammer,
+  LayoutGrid,
   BellRing
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
@@ -30,62 +46,148 @@ const TALUKAS = [
   "Gir Gadhada"
 ];
 
-const QUICK_MENU = [
+const DIRECTORY_MENU = [
   {
-    href: "/directory",
-    label: "Directory",
-    sub: "Contacts",
-    icon: PhoneCall,
+    href: "/directory?category=CA",
+    label: "CA",
+    sub: "Finance",
+    icon: Calculator,
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200/50 dark:border-blue-900/40"
   },
   {
-    href: "/events",
-    label: "Events",
-    sub: "Festivals",
-    icon: Calendar,
+    href: "/directory?category=Advocates",
+    label: "Advocates",
+    sub: "Legal",
+    icon: Scale,
+    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/50 dark:border-indigo-900/40"
+  },
+  {
+    href: "/directory?category=Shops",
+    label: "Shops",
+    sub: "Retail",
+    icon: Store,
+    color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50 dark:border-amber-900/40"
+  },
+  {
+    href: "/directory?category=Medical+Stores",
+    label: "Medical Stores",
+    sub: "Pharmacy",
+    icon: Pill,
+    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40"
+  },
+  {
+    href: "/directory?category=Hospitals",
+    label: "Hospitals",
+    sub: "Healthcare",
+    icon: Hospital,
+    color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200/50 dark:border-rose-900/40"
+  },
+  {
+    href: "/directory?category=Shopping+Malls",
+    label: "Shopping Malls",
+    sub: "Commercial",
+    icon: Building2,
     color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-900/40"
   },
   {
-    href: "/market",
-    label: "Market",
-    sub: "Buy/Sell/Rent",
+    href: "/directory?category=Govt+Offices",
+    label: "Govt Offices",
+    sub: "Public Desk",
+    icon: Landmark,
+    color: "bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-200/50 dark:border-slate-800/40"
+  },
+  {
+    href: "/directory?category=Garages",
+    label: "Garages",
+    sub: "Auto Repair",
+    icon: Wrench,
+    color: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-900/40"
+  },
+  {
+    href: "/directory?category=Temples",
+    label: "Temples/Dargas",
+    sub: "Pilgrimage",
+    icon: Flame,
+    color: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-200/50 dark:border-yellow-900/40"
+  }
+];
+
+const EVENTS_MENU = [
+  {
+    href: "/events?tag=Festival",
+    label: "Festivals",
+    sub: "Cultural",
+    icon: Sparkles,
+    color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-900/40"
+  },
+  {
+    href: "/events?tag=Exhibition",
+    label: "Exhibition",
+    sub: "Fairs & Agro",
+    icon: Presentation,
+    color: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-200/50 dark:border-sky-900/40"
+  },
+  {
+    href: "/events?tag=Tour",
+    label: "Tours",
+    sub: "Safari & Walks",
+    icon: Compass,
+    color: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-200/50 dark:border-teal-900/40"
+  }
+];
+
+const MARKET_MENU = [
+  {
+    href: "/market?type=Buy",
+    label: "Buy",
+    sub: "Browse Items",
     icon: ShoppingBag,
     color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40"
   },
   {
-    href: "/classifieds",
-    label: "Classifieds",
-    sub: "Jobs & Ads",
-    icon: Megaphone,
+    href: "/market?type=Sell",
+    label: "Sell",
+    sub: "Post Goods",
+    icon: Coins,
     color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50 dark:border-amber-900/40"
   },
   {
-    href: "/directory",
-    label: "Helplines",
-    sub: "Emergency",
-    icon: ShieldAlert,
-    color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200/50 dark:border-rose-900/40"
+    href: "/market?type=Rent",
+    label: "Rent",
+    sub: "Farm & Vehicle",
+    icon: KeyRound,
+    color: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-200/50 dark:border-cyan-900/40"
+  }
+];
+
+const CLASSIFIEDS_MENU = [
+  {
+    href: "/classifieds?category=Jobs",
+    label: "Jobs",
+    sub: "Recruitment",
+    icon: Briefcase,
+    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200/50 dark:border-blue-900/40"
   },
   {
-    href: "/market",
-    label: "Rentals",
-    sub: "Farm & Vehicle",
-    icon: TrendingUp,
-    color: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-200/50 dark:border-cyan-900/40"
+    href: "/classifieds?category=Real+Estate",
+    label: "Real Estate",
+    sub: "Property",
+    icon: Building,
+    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40"
+  },
+  {
+    href: "/classifieds?category=Services",
+    label: "Services",
+    sub: "Local Pros",
+    icon: Hammer,
+    color: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-900/40"
   },
   {
     href: "/classifieds",
-    label: "Post Ad",
-    sub: "Free Listing",
-    icon: PlusCircle,
+    label: "All Ads",
+    sub: "Community",
+    icon: LayoutGrid,
     color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/50 dark:border-indigo-900/40"
-  },
-  {
-    href: "#somnath",
-    label: "Explore",
-    sub: "Places & Towns",
-    icon: Landmark,
-    color: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-900/40"
   }
 ];
 
@@ -142,13 +244,13 @@ export default function Home() {
           <Badge variant="outline" className="gap-1 bg-background/80 text-[10px]">
             <Compass className="size-3" /> Saurashtra Coast, Gujarat
           </Badge>
-          <span className="text-[10px] font-semibold text-muted-foreground">Code: GJ-32</span>
+          <span className="text-[10px] font-semibold text-muted-foreground">Code: GJ-38</span>
         </div>
 
         <div>
           <div className="flex items-center gap-1.5">
             <h2 className="text-base font-bold text-foreground">
-              Gir Somnath
+              GirSomnath
             </h2>
             <Badge variant="default" className="px-1.5 py-0 text-[10px] font-bold">
               .in
@@ -183,19 +285,144 @@ export default function Home() {
 
       <section className="space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-bold text-foreground uppercase tracking-wider">
-            Quick Portal Access
-          </h3>
+          <div className="flex items-center gap-1.5">
+            <PhoneCall className="size-4 text-primary" />
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-wider">
+              Directory
+            </h3>
+          </div>
+          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
+            <Link href="/directory">
+              View All <ArrowRight className="size-3" />
+            </Link>
+          </Button>
         </div>
 
         <div className="grid grid-cols-4 gap-2">
-          {QUICK_MENU.map((item, idx) => {
+          {DIRECTORY_MENU.map((item, idx) => {
             const Icon = item.icon;
             return (
               <Link
                 key={idx}
                 href={item.href}
-                className="group flex flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2.5 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
+                className="group flex flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
+              >
+                <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
+                  <Icon className="size-5" />
+                </div>
+                <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
+                  {item.label}
+                </span>
+                <span className="block w-full truncate text-[9px] text-muted-foreground">
+                  {item.sub}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <Calendar className="size-4 text-primary" />
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-wider">
+              Events
+            </h3>
+          </div>
+          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
+            <Link href="/events">
+              View All <ArrowRight className="size-3" />
+            </Link>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          {EVENTS_MENU.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={idx}
+                href={item.href}
+                className="group flex flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
+              >
+                <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
+                  <Icon className="size-5" />
+                </div>
+                <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
+                  {item.label}
+                </span>
+                <span className="block w-full truncate text-[9px] text-muted-foreground">
+                  {item.sub}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <ShoppingBag className="size-4 text-primary" />
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-wider">
+              Market
+            </h3>
+          </div>
+          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
+            <Link href="/market">
+              View All <ArrowRight className="size-3" />
+            </Link>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          {MARKET_MENU.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={idx}
+                href={item.href}
+                className="group flex flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
+              >
+                <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
+                  <Icon className="size-5" />
+                </div>
+                <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
+                  {item.label}
+                </span>
+                <span className="block w-full truncate text-[9px] text-muted-foreground">
+                  {item.sub}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <Megaphone className="size-4 text-primary" />
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-wider">
+              Classifieds Ads
+            </h3>
+          </div>
+          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
+            <Link href="/classifieds">
+              View All <ArrowRight className="size-3" />
+            </Link>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-4 gap-2">
+          {CLASSIFIEDS_MENU.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={idx}
+                href={item.href}
+                className="group flex flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
               >
                 <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
                   <Icon className="size-5" />
