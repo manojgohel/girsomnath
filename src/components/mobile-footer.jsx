@@ -1,0 +1,66 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Home, PhoneCall, Calendar, ShoppingBag, Megaphone } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const NAV_ITEMS = [
+  { href: "/", label: "Home", icon: Home },
+  { href: "/directory", label: "Directory", icon: PhoneCall },
+  { href: "/events", label: "Events", icon: Calendar },
+  { href: "/market", label: "Market", icon: ShoppingBag },
+  { href: "/classifieds", label: "Classifieds", icon: Megaphone },
+];
+
+export function MobileFooter() {
+  const pathname = usePathname();
+
+  return (
+    <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 pb-[env(safe-area-inset-bottom)]">
+      <nav aria-label="Mobile Navigation" className="mx-auto grid h-16 max-w-md grid-cols-5 items-center px-1.5">
+        {NAV_ITEMS.map((item) => {
+          const Icon = item.icon;
+          const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "group relative flex h-full flex-col items-center justify-center gap-1 rounded-xl py-1 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                isActive
+                  ? "text-primary"
+                  : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+              )}
+            >
+              <div
+                className={cn(
+                  "flex h-7 w-10 items-center justify-center rounded-full transition-all duration-200",
+                  isActive
+                    ? "bg-primary/10 text-primary shadow-xs"
+                    : "text-muted-foreground group-hover:scale-105 group-hover:text-foreground"
+                )}
+              >
+                <Icon
+                  className={cn(
+                    "size-4.5 transition-transform duration-200",
+                    isActive ? "stroke-[2.4]" : "stroke-[1.8]"
+                  )}
+                />
+              </div>
+              <span
+                className={cn(
+                  "block w-full truncate px-0.5 text-center text-[10px] leading-none tracking-tight",
+                  isActive ? "font-semibold text-primary" : "font-medium"
+                )}
+              >
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
+      </nav>
+    </footer>
+  );
+}
