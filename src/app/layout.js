@@ -10,7 +10,7 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Gir Somnath.in - District Portal",
+  title: "GirSomnath.in - District Portal",
   description: "Directory, Events, Market and Classifieds for Gir Somnath District",
 };
 
@@ -19,9 +19,9 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${roboto.variable} h-full antialiased font-sans`}
+      className={`${roboto.variable} h-full antialiased font-sans overflow-x-hidden`}
     >
-      <body className="min-h-full bg-background text-foreground font-sans">
+      <body className="min-h-full bg-background text-foreground font-sans overflow-x-hidden">
         <PortalLayout>{children}</PortalLayout>
       </body>
     </html>

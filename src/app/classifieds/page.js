@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { Megaphone, MapPin, PlusCircle, Clock } from "lucide-react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Megaphone, MapPin, PlusCircle, Clock, Briefcase, Building, Hammer, LayoutGrid } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
+const CLASSIFIEDS_MENU = [
+  { id: "All", label: "All Ads", icon: LayoutGrid, color: "bg-primary/10 text-primary border-primary/20" },
+  { id: "Jobs", label: "Jobs", icon: Briefcase, color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200/50 dark:border-blue-900/40" },
+  { id: "Real Estate", label: "Real Estate", icon: Building, color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40" },
+  { id: "Services", label: "Services", icon: Hammer, color: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-900/40" }
+];
 
 const ADS_DATA = [
   {
@@ -34,7 +42,7 @@ const ADS_DATA = [
   },
   {
     title: "Fish Cold Storage Space Available on Monthly Sharing",
-    category: "Commercial",
+    category: "Real Estate",
     time: "3 days ago",
     location: "Veraval Harbor",
     tag: "Available",
@@ -50,10 +58,17 @@ const ADS_DATA = [
   }
 ];
 
-export default function ClassifiedsPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+function ClassifiedsContent() {
+  const searchParams = useSearchParams();
+  const paramCat = searchParams.get("category");
 
-  const filtered = selectedCategory === "All" ? ADS_DATA : ADS_DATA.filter((a) => a.category === selectedCategory);
+  const [customCategory, setCustomCategory] = useState(null);
+  const selectedCategory = customCategory ?? paramCat ?? "All";
+
+  const filtered =
+    selectedCategory === "All"
+      ? ADS_DATA
+      : ADS_DATA.filter((a) => a.category.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
     <div className="flex flex-col space-y-4 px-3.5 py-2">
@@ -68,17 +83,50 @@ export default function ClassifiedsPage() {
         }
       />
 
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
-        {["All", "Jobs", "Real Estate", "Services", "Commercial"].map((cat) => (
-          <Badge
-            key={cat}
-            variant={selectedCategory === cat ? "default" : "outline"}
-            onClick={() => setSelectedCategory(cat)}
-            className="shrink-0 px-3 py-1 font-medium cursor-pointer"
+      <div className="grid grid-cols-4 gap-2">
+        {CLASSIFIEDS_MENU.map((item) => {
+          const Icon = item.icon;
+          const isSelected = selectedCategory === item.id;
+
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setCustomCategory(item.id)}
+              className={`group flex flex-col items-center justify-center rounded-2xl border p-2 text-center shadow-xs transition-all active:scale-95 ${
+                isSelected
+                  ? "border-primary bg-primary/10 ring-2 ring-primary/20"
+                  : "border-border/70 bg-card hover:border-primary/40 hover:bg-muted/40"
+              }`}
+            >
+              <div
+                className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}
+              >
+                <Icon className="size-5" />
+              </div>
+              <span
+                className={`mt-1.5 block w-full truncate text-[11px] leading-tight ${
+                  isSelected ? "font-bold text-primary" : "font-semibold text-foreground"
+                }`}
+              >
+                {item.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center justify-between text-[11px] text-muted-foreground px-0.5">
+        <span>Showing {filtered.length} Ads</span>
+        {selectedCategory !== "All" && (
+          <button
+            type="button"
+            onClick={() => setCustomCategory("All")}
+            className="text-primary font-medium hover:underline"
           >
-            {cat}
-          </Badge>
-        ))}
+            Show All
+          </button>
+        )}
       </div>
 
       <div className="space-y-2.5">
@@ -113,5 +161,13 @@ export default function ClassifiedsPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function ClassifiedsPage() {
+  return (
+    <Suspense fallback={<div className="p-4 text-xs text-muted-foreground">Loading...</div>}>
+      <ClassifiedsContent />
+    </Suspense>
   );
 }

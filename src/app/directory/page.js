@@ -1,7 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import { Search, PhoneCall, MapPin, PlusCircle } from "lucide-react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import {
+  Search,
+  PhoneCall,
+  MapPin,
+  PlusCircle,
+  Calculator,
+  Scale,
+  Store,
+  Pill,
+  Hospital,
+  Building2,
+  Landmark,
+  Wrench,
+  Flame,
+  LayoutGrid
+} from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,35 +44,57 @@ const TALUKAS = [
   "Gir Gadhada"
 ];
 
-const CATEGORIES = [
+const DIRECTORY_CATEGORIES = [
+  { id: "All", label: "All", icon: LayoutGrid, color: "bg-primary/10 text-primary border-primary/20" },
+  { id: "CA", label: "CA", icon: Calculator, color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200/50 dark:border-blue-900/40" },
+  { id: "Advocates", label: "Advocates", icon: Scale, color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/50 dark:border-indigo-900/40" },
+  { id: "Shops", label: "Shops", icon: Store, color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50 dark:border-amber-900/40" },
+  { id: "Medical Stores", label: "Medical Stores", icon: Pill, color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40" },
+  { id: "Hospitals", label: "Hospitals", icon: Hospital, color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200/50 dark:border-rose-900/40" },
+  { id: "Shopping Malls", label: "Shopping Malls", icon: Building2, color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-900/40" },
+  { id: "Govt Offices", label: "Govt Offices", icon: Landmark, color: "bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-200/50 dark:border-slate-800/40" },
+  { id: "Garages", label: "Garages", icon: Wrench, color: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-900/40" },
+  { id: "Temples", label: "Temples/Dargas", icon: Flame, color: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-200/50 dark:border-yellow-900/40" }
+];
+
+const COMBO_CATEGORIES = [
   "All Categories",
-  "Trade & Industry",
-  "Agriculture",
-  "Hospitality",
-  "Logistics",
-  "Fisheries",
-  "Retail & Trade",
-  "Healthcare",
-  "Emergency"
+  "CA",
+  "Advocates",
+  "Shops",
+  "Medical Stores",
+  "Hospitals",
+  "Shopping Malls",
+  "Govt Offices",
+  "Garages",
+  "Temples"
 ];
 
 const DIRECTORY_DATA = [
-  { name: "Veraval Fisheries & Exporters Association", category: "Trade & Industry", phone: "+91 2876 220140", address: "Harbor Road, Veraval Port", town: "Veraval", initial: "VF" },
-  { name: "Talala Kesar Mango Cooperative", category: "Agriculture", phone: "+91 2877 222345", address: "APMC Market Yard", town: "Talala", initial: "TM" },
-  { name: "Somnath Tourism & Guest House Desk", category: "Hospitality", phone: "+91 2876 231200", address: "Bypass Road, Somnath", town: "Somnath", initial: "ST" },
-  { name: "Kodinar Transport & Logistics Hub", category: "Logistics", phone: "+91 2877 221890", address: "National Highway, Kodinar", town: "Kodinar", initial: "KT" },
-  { name: "Una Timber & Hardware Merchants", category: "Retail & Trade", phone: "+91 2875 221430", address: "Station Road, Una", town: "Una", initial: "UT" },
-  { name: "Sutrapada Coastal Cooperative", category: "Fisheries", phone: "+91 2876 263110", address: "Coastal Belt, Sutrapada", town: "Sutrapada", initial: "SC" },
-  { name: "Gir Agro Seeds & Fertilizers", category: "Agriculture", phone: "+91 2877 223901", address: "Main Bazaar, Talala Gir", town: "Talala", initial: "GA" },
-  { name: "Somnath Diagnostic & Healthcare Center", category: "Healthcare", phone: "+91 2876 242011", address: "College Road, Veraval", town: "Veraval", initial: "SD" },
-  { name: "Gir Gadhada Agro Equipment Centre", category: "Agriculture", phone: "+91 2875 241022", address: "Market Yard, Gir Gadhada", town: "Gir Gadhada", initial: "GG" },
-  { name: "District Emergency Control Room", category: "Emergency", phone: "1077", address: "Disaster Management Centre, Veraval", town: "Veraval", initial: "EC" }
+  { name: "Veraval Fisheries & Exporters Association", category: "Shops", phone: "+91 2876 220140", address: "Harbor Road, Veraval Port", town: "Veraval", initial: "VF" },
+  { name: "Talala Kesar Mango Cooperative", category: "Shops", phone: "+91 2877 222345", address: "APMC Market Yard", town: "Talala", initial: "TM" },
+  { name: "Mehta & Associates Chartered Accountants", category: "CA", phone: "+91 2876 245110", address: "Station Road, Veraval", town: "Veraval", initial: "MA" },
+  { name: "Joshi Legal Associates & Notary", category: "Advocates", phone: "+91 2876 231450", address: "Court Complex, Veraval", town: "Veraval", initial: "JL" },
+  { name: "Somnath Tourism & Guest House Desk", category: "Shopping Malls", phone: "+91 2876 231200", address: "Bypass Road, Somnath", town: "Somnath", initial: "ST" },
+  { name: "Kodinar Auto Garage & Repairs", category: "Garages", phone: "+91 2877 221890", address: "National Highway, Kodinar", town: "Kodinar", initial: "KG" },
+  { name: "Somnath Civil Hospital & Emergency", category: "Hospitals", phone: "+91 2876 242011", address: "Hospital Road, Veraval", town: "Veraval", initial: "SH" },
+  { name: "Sanjivani 24x7 Medical Store", category: "Medical Stores", phone: "+91 2876 248900", address: "Tower Chowk, Veraval", town: "Veraval", initial: "SM" },
+  { name: "Una Hardware & Sanitary Mart", category: "Shops", phone: "+91 2875 221430", address: "Station Road, Una", town: "Una", initial: "UM" },
+  { name: "Somnath Mahadev Jyotirlinga Trust", category: "Temples", phone: "+91 2876 231212", address: "Prabhas Patan, Somnath", town: "Somnath", initial: "ST" },
+  { name: "Mamlatdar & Taluka Seva Sadan", category: "Govt Offices", phone: "+91 2876 220015", address: "Taluka Panchayat, Veraval", town: "Veraval", initial: "TS" }
 ];
 
-export default function DirectoryPage() {
+function DirectoryContent() {
+  const searchParams = useSearchParams();
+  const paramCategory = searchParams.get("category");
+  const paramTaluka = searchParams.get("taluka");
+
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All Categories");
-  const [selectedTaluka, setSelectedTaluka] = useState("All Talukas");
+  const [customCategory, setCustomCategory] = useState(null);
+  const [customTaluka, setCustomTaluka] = useState(null);
+
+  const selectedCategory = customCategory ?? paramCategory ?? "All";
+  const selectedTaluka = customTaluka ?? paramTaluka ?? "All Talukas";
 
   const filtered = DIRECTORY_DATA.filter((item) => {
     const matchesSearch =
@@ -64,7 +102,10 @@ export default function DirectoryPage() {
       item.category.toLowerCase().includes(search.toLowerCase()) ||
       item.address.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
-      !selectedCategory || selectedCategory === "All Categories" || item.category === selectedCategory;
+      !selectedCategory ||
+      selectedCategory === "All" ||
+      selectedCategory === "All Categories" ||
+      item.category.toLowerCase() === selectedCategory.toLowerCase();
     const matchesTaluka =
       !selectedTaluka || selectedTaluka === "All Talukas" || item.town === selectedTaluka;
     return matchesSearch && matchesCategory && matchesTaluka;
@@ -72,14 +113,14 @@ export default function DirectoryPage() {
 
   const hasActiveFilters =
     search ||
-    (selectedCategory && selectedCategory !== "All Categories") ||
+    (selectedCategory && selectedCategory !== "All" && selectedCategory !== "All Categories") ||
     (selectedTaluka && selectedTaluka !== "All Talukas");
 
   return (
     <div className="flex flex-col space-y-4 px-3.5 py-2">
       <PageHeader
         title="Directory"
-        description="Local businesses, cooperatives, utilities, and emergency numbers across Gir Somnath."
+        description="Local businesses, professionals, utilities, and services across Gir Somnath."
         icon={PhoneCall}
         action={
           <Button size="sm" className="h-8 gap-1 text-xs shadow-xs">
@@ -87,6 +128,43 @@ export default function DirectoryPage() {
           </Button>
         }
       />
+
+      <div className="grid grid-cols-4 gap-2">
+        {DIRECTORY_CATEGORIES.map((item) => {
+          const Icon = item.icon;
+          const isSelected =
+            selectedCategory === item.id ||
+            (item.id === "All" && (!selectedCategory || selectedCategory === "All Categories"));
+
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => {
+                setCustomCategory(item.id);
+              }}
+              className={`group flex flex-col items-center justify-center rounded-2xl border p-2 text-center shadow-xs transition-all active:scale-95 ${
+                isSelected
+                  ? "border-primary bg-primary/10 ring-2 ring-primary/20"
+                  : "border-border/70 bg-card hover:border-primary/40 hover:bg-muted/40"
+              }`}
+            >
+              <div
+                className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}
+              >
+                <Icon className="size-5" />
+              </div>
+              <span
+                className={`mt-1.5 block w-full truncate text-[11px] leading-tight ${
+                  isSelected ? "font-bold text-primary" : "font-semibold text-foreground"
+                }`}
+              >
+                {item.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
 
       <div className="space-y-2 rounded-2xl border border-border bg-card p-3 shadow-xs">
         <div className="relative">
@@ -102,9 +180,9 @@ export default function DirectoryPage() {
 
         <div className="grid grid-cols-2 gap-2">
           <Combobox
-            items={CATEGORIES}
-            value={selectedCategory}
-            onValueChange={(val) => setSelectedCategory(val ?? "All Categories")}
+            items={COMBO_CATEGORIES}
+            value={selectedCategory === "All" ? "All Categories" : selectedCategory}
+            onValueChange={(val) => setCustomCategory(val ?? "All Categories")}
           >
             <ComboboxInput
               placeholder="Category"
@@ -113,7 +191,7 @@ export default function DirectoryPage() {
             <ComboboxContent>
               <ComboboxEmpty>No category found.</ComboboxEmpty>
               <ComboboxList>
-                {CATEGORIES.map((cat) => (
+                {COMBO_CATEGORIES.map((cat) => (
                   <ComboboxItem key={cat} value={cat}>
                     {cat}
                   </ComboboxItem>
@@ -125,7 +203,7 @@ export default function DirectoryPage() {
           <Combobox
             items={TALUKAS}
             value={selectedTaluka}
-            onValueChange={(val) => setSelectedTaluka(val ?? "All Talukas")}
+            onValueChange={(val) => setCustomTaluka(val ?? "All Talukas")}
           >
             <ComboboxInput
               placeholder="Taluka"
@@ -152,8 +230,8 @@ export default function DirectoryPage() {
             type="button"
             onClick={() => {
               setSearch("");
-              setSelectedCategory("All Categories");
-              setSelectedTaluka("All Talukas");
+              setCustomCategory("All");
+              setCustomTaluka("All Talukas");
             }}
             className="text-primary font-medium hover:underline"
           >
@@ -201,5 +279,13 @@ export default function DirectoryPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function DirectoryPage() {
+  return (
+    <Suspense fallback={<div className="p-4 text-xs text-muted-foreground">Loading...</div>}>
+      <DirectoryContent />
+    </Suspense>
   );
 }

@@ -21,13 +21,13 @@ export function MobileHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-14 max-w-md items-center justify-between px-3">
+      <div className="flex h-14 w-full items-center justify-between px-3">
         <div className="flex items-center gap-2">
           <SidebarTrigger />
           <Link href="/" className="flex flex-col">
             <div className="flex items-center gap-1">
               <span className="font-heading text-base font-bold tracking-tight text-foreground">
-                Gir Somnath
+                GirSomnath
               </span>
               <Badge variant="default" className="px-1.5 py-0 text-[10px] font-bold">
                 .in

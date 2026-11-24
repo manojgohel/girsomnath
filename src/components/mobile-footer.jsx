@@ -17,8 +17,8 @@ export function MobileFooter() {
   const pathname = usePathname();
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 pb-[env(safe-area-inset-bottom)]">
-      <nav aria-label="Mobile Navigation" className="mx-auto grid h-16 max-w-md grid-cols-5 items-center px-1.5">
+    <footer className="sticky bottom-0 z-40 w-full border-t border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 pb-[env(safe-area-inset-bottom)]">
+      <nav aria-label="Mobile Navigation" className="grid h-16 w-full grid-cols-5 items-center px-1.5">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
