@@ -271,8 +271,8 @@ function DirectoryContent() {
                 <MapPin className="size-3 shrink-0 text-muted-foreground" />
                 <span className="truncate">{item.address}</span>
               </span>
-              <Button asChild size="sm" variant="default" className="h-7 px-3 text-[11px] shrink-0 font-medium">
-                <a href={`tel:${item.phone}`}>Call</a>
+              <Button render={<a href={`tel:${item.phone}`} />} size="sm" variant="default" className="h-7 px-3 text-[11px] shrink-0 font-medium">
+                Call
               </Button>
             </div>
           </Card>

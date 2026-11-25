@@ -158,8 +158,8 @@ function MarketContent() {
               <p className="text-[10px] text-muted-foreground flex items-center gap-0.5 mt-0.5">
                 <MapPin className="size-2.5" /> {item.location}
               </p>
-              <Button asChild size="sm" variant="outline" className="w-full mt-2 h-7 text-[10px]">
-                <a href={`tel:${item.phone}`}>Contact</a>
+              <Button render={<a href={`tel:${item.phone}`} />} size="sm" variant="outline" className="w-full mt-2 h-7 text-[10px]">
+                Contact
               </Button>
             </div>
           </Card>

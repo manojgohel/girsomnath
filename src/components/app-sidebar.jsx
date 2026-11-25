@@ -80,11 +80,9 @@ export function AppSidebar() {
             <SidebarMenu>
               {MAIN_NAV.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="h-9 font-medium">
-                    <Link href={item.url} className="flex items-center gap-2.5">
-                      <item.icon className="size-4 text-primary" />
-                      <span>{item.title}</span>
-                    </Link>
+                  <SidebarMenuButton render={<Link href={item.url} />} className="h-9 font-medium">
+                    <item.icon className="size-4 text-primary" />
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -102,16 +100,17 @@ export function AppSidebar() {
             <SidebarMenu>
               {TOWNS.map((town) => (
                 <SidebarMenuItem key={town.name}>
-                  <SidebarMenuButton asChild className="h-8 text-xs">
-                    <Link href={`/directory?taluka=${encodeURIComponent(town.name)}`} className="flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <MapPin className="size-3.5 text-muted-foreground" />
-                        <span>{town.name}</span>
-                      </span>
-                      <span className="text-[10px] text-muted-foreground">
-                        {town.count}
-                      </span>
-                    </Link>
+                  <SidebarMenuButton
+                    render={<Link href={`/directory?taluka=${encodeURIComponent(town.name)}`} />}
+                    className="h-8 text-xs justify-between"
+                  >
+                    <span className="flex items-center gap-2">
+                      <MapPin className="size-3.5 text-muted-foreground" />
+                      <span>{town.name}</span>
+                    </span>
+                    <span className="text-[10px] text-muted-foreground">
+                      {town.count}
+                    </span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -128,16 +127,17 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild className="h-8 text-xs text-red-600 dark:text-red-400">
-                  <Link href="/directory" className="flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <ShieldAlert className="size-3.5" />
-                      <span>Emergency Helplines</span>
-                    </span>
-                    <Badge variant="destructive" className="px-1 text-[9px]">
-                      24x7
-                    </Badge>
-                  </Link>
+                <SidebarMenuButton
+                  render={<Link href="/directory" />}
+                  className="h-8 text-xs text-red-600 dark:text-red-400 justify-between"
+                >
+                  <span className="flex items-center gap-2">
+                    <ShieldAlert className="size-3.5" />
+                    <span>Emergency Helplines</span>
+                  </span>
+                  <Badge variant="destructive" className="px-1 text-[9px]">
+                    24x7
+                  </Badge>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

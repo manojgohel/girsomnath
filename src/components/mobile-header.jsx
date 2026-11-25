@@ -56,20 +56,15 @@ export function MobileHeader() {
           </Button>
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                aria-label="User profile menu"
-                className="size-8 rounded-full"
-              >
-                <Avatar className="size-7">
-                  <AvatarFallback className="bg-secondary text-foreground text-xs font-semibold">
-                    <User className="size-3.5" />
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
+            <DropdownMenuTrigger
+              aria-label="User profile menu"
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full hover:bg-muted outline-none transition-colors"
+            >
+              <Avatar className="size-7">
+                <AvatarFallback className="bg-secondary text-foreground text-xs font-semibold">
+                  <User className="size-3.5" />
+                </AvatarFallback>
+              </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuLabel className="text-xs">My Account</DropdownMenuLabel>
