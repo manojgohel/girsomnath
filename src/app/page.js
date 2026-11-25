@@ -8,7 +8,9 @@ import {
   PhoneCall,
   Compass,
   MapPin,
-  ShieldAlert
+  ShieldAlert,
+  ChevronRight,
+  Sparkles
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -155,6 +157,34 @@ export default function Home() {
           })}
         </div>
       </section>
+
+      <Link href="/sights" className="block active:scale-[0.99] transition-transform">
+        <Card className="relative overflow-hidden border-border/80 bg-linear-to-r from-orange-500/10 via-amber-500/10 to-emerald-500/10 p-3.5 shadow-xs hover:border-primary/50 transition-colors">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-orange-500 to-amber-600 text-white shadow-xs">
+                <Compass className="size-6 stroke-[2.2]" />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-foreground">
+                    Top Sights & Attractions
+                  </span>
+                  <Badge className="bg-amber-500 text-white text-[9px] px-1.5 py-0 font-bold">
+                    <Sparkles className="size-2.5 mr-0.5" /> Guide
+                  </Badge>
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
+                  Most visited places, Somnath Temple, Gir Lion Safari & Beaches
+                </p>
+              </div>
+            </div>
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-background border border-border/70 text-foreground shadow-2xs">
+              <ChevronRight className="size-4 text-muted-foreground" />
+            </div>
+          </div>
+        </Card>
+      </Link>
 
       <Card className="border-border/80 bg-card p-3 gap-2.5 shadow-xs">
         <div className="flex items-center justify-between">
