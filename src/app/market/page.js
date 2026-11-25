@@ -2,96 +2,69 @@
 
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ShoppingBag, MapPin, PlusCircle, Coins, KeyRound, LayoutGrid } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  ShoppingBag,
+  MapPin,
+  Plus,
+  Coins,
+  KeyRound,
+  LayoutGrid,
+  Search,
+  X,
+  Phone,
+  Tag
+} from "lucide-react";
 import { PageHeader } from "@/components/page-header";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { MARKET_DATA } from "@/lib/market-data";
 
 const MARKET_MENU = [
-  { id: "All", label: "All Items", icon: LayoutGrid, color: "bg-primary/10 text-primary border-primary/20" },
-  { id: "Buy", label: "Buy", icon: ShoppingBag, color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40" },
-  { id: "Sell", label: "Sell", icon: Coins, color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50 dark:border-amber-900/40" },
-  { id: "Rent", label: "Rent", icon: KeyRound, color: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-200/50 dark:border-cyan-900/40" }
-];
-
-const MARKET_DATA = [
-  {
-    title: "John Deere Tractor 5050D with Rotavator",
-    price: "₹ 1,400 / day",
-    type: "Rent",
-    category: "Agro Machinery",
-    location: "Kodinar",
-    phone: "+91 98790 11223"
-  },
-  {
-    title: "Organic Kesar Mango Orchard (4 Bigha)",
-    price: "₹ 38 Lakh",
-    type: "Buy",
-    category: "Farmland",
-    location: "Talala Gir",
-    phone: "+91 94280 33445"
-  },
-  {
-    title: "Commercial Godown 2500 sq ft near Highway",
-    price: "₹ 22,000 / mo",
-    type: "Rent",
-    category: "Commercial Property",
-    location: "Veraval GIDC",
-    phone: "+91 98250 55667"
-  },
-  {
-    title: "Deep Sea Wooden Fishing Trawler 42ft",
-    price: "₹ 16.5 Lakh",
-    type: "Buy",
-    category: "Marine & Fisheries",
-    location: "Veraval Harbor",
-    phone: "+91 97120 77889"
-  },
-  {
-    title: "Eicher 14ft Commercial Truck for Transport",
-    price: "₹ 2,200 / day",
-    type: "Rent",
-    category: "Vehicles",
-    location: "Una",
-    phone: "+91 98980 99001"
-  },
-  {
-    title: "Used Power Tiller with Attachment",
-    price: "₹ 85,000",
-    type: "Sell",
-    category: "Agro Equipment",
-    location: "Sutrapada",
-    phone: "+91 94080 22334"
-  }
+  { id: "All", label: "All Items", icon: LayoutGrid, iconBg: "bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100" },
+  { id: "Buy", label: "Buy", icon: ShoppingBag, iconBg: "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400" },
+  { id: "Sell", label: "Sell", icon: Coins, iconBg: "bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400" },
+  { id: "Rent", label: "Rent", icon: KeyRound, iconBg: "bg-cyan-100 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400" }
 ];
 
 function MarketContent() {
   const searchParams = useSearchParams();
   const paramType = searchParams.get("type");
 
+  const [search, setSearch] = useState("");
   const [customType, setCustomType] = useState(null);
   const filterType = customType ?? paramType ?? "All";
 
-  const filtered =
-    filterType === "All"
-      ? MARKET_DATA
-      : MARKET_DATA.filter((m) => m.type.toLowerCase() === filterType.toLowerCase());
+  const filtered = MARKET_DATA.filter((m) => {
+    const matchesType =
+      filterType === "All" || m.type.toLowerCase() === filterType.toLowerCase();
+    const matchesSearch =
+      m.title.toLowerCase().includes(search.toLowerCase()) ||
+      m.category.toLowerCase().includes(search.toLowerCase()) ||
+      m.location.toLowerCase().includes(search.toLowerCase());
+    return matchesType && matchesSearch;
+  });
 
   return (
-    <div className="flex flex-col space-y-4 px-3.5 py-2">
+    <div className="flex flex-col space-y-3.5 px-3.5 py-2">
       <PageHeader
         title="Marketplace"
         description="Buy, sell, and rent equipment, properties, vehicles, and goods."
         icon={ShoppingBag}
         action={
-          <Button size="sm" className="h-8 gap-1 text-xs shadow-xs">
-            <PlusCircle className="size-3.5" /> Post Item
+          <Button
+            render={<Link href="/market/new" />}
+            size="sm"
+            className="h-8.5 rounded-full px-3.5 text-xs font-semibold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 shadow-sm gap-1"
+          >
+            <Plus className="size-3.5" /> Post Item
           </Button>
         }
       />
 
-      <div className="grid grid-cols-4 gap-2">
+      <div className="flex w-full items-center gap-2.5 overflow-x-auto py-1 no-scrollbar -mx-3.5 px-3.5">
         {MARKET_MENU.map((item) => {
           const Icon = item.icon;
           const isSelected = filterType === item.id;
@@ -101,20 +74,20 @@ function MarketContent() {
               key={item.id}
               type="button"
               onClick={() => setCustomType(item.id)}
-              className={`group flex flex-col items-center justify-center rounded-2xl border p-2 text-center shadow-xs transition-all active:scale-95 ${
+              className={`group flex shrink-0 items-center gap-2.5 rounded-2xl border px-3 py-2 transition-all duration-150 active:scale-95 ${
                 isSelected
-                  ? "border-primary bg-primary/10 ring-2 ring-primary/20"
-                  : "border-border/70 bg-card hover:border-primary/40 hover:bg-muted/40"
+                  ? "border-zinc-900 bg-zinc-100 dark:border-zinc-200 dark:bg-zinc-800/80 shadow-xs ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
+                  : "border-border/60 bg-card hover:border-border hover:bg-muted/30 shadow-2xs"
               }`}
             >
               <div
-                className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}
+                className={`flex size-8 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-105 ${item.iconBg}`}
               >
-                <Icon className="size-5" />
+                <Icon className="size-4.5 stroke-[2.2]" />
               </div>
               <span
-                className={`mt-1.5 block w-full truncate text-[11px] leading-tight ${
-                  isSelected ? "font-bold text-primary" : "font-semibold text-foreground"
+                className={`whitespace-nowrap text-xs font-semibold pr-0.5 ${
+                  isSelected ? "text-foreground font-bold" : "text-foreground/90"
                 }`}
               >
                 {item.label}
@@ -124,12 +97,36 @@ function MarketContent() {
         })}
       </div>
 
-      <div className="flex items-center justify-between text-[11px] text-muted-foreground px-0.5">
-        <span>Showing {filtered.length} Items</span>
-        {filterType !== "All" && (
+      <div className="relative">
+        <Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+        <Input
+          type="search"
+          placeholder="Search items, equipment or property..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="h-10 pl-10 pr-9 rounded-2xl bg-card text-xs shadow-xs border-border/80 placeholder:text-muted-foreground/75 focus-visible:bg-card focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 transition-all"
+        />
+        {search && (
           <button
             type="button"
-            onClick={() => setCustomType("All")}
+            onClick={() => setSearch("")}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5 rounded-full"
+            aria-label="Clear search"
+          >
+            <X className="size-3.5" />
+          </button>
+        )}
+      </div>
+
+      <div className="flex items-center justify-between text-[11px] text-muted-foreground px-0.5 pt-0.5">
+        <span>Showing {filtered.length} Items</span>
+        {(filterType !== "All" || search) && (
+          <button
+            type="button"
+            onClick={() => {
+              setCustomType("All");
+              setSearch("");
+            }}
             className="text-primary font-medium hover:underline"
           >
             Show All
@@ -137,32 +134,48 @@ function MarketContent() {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        {filtered.map((item, idx) => (
-          <Card key={idx} className="p-3 gap-1 shadow-xs flex flex-col justify-between">
+      <div className="grid grid-cols-2 gap-2.5">
+        {filtered.map((item) => (
+          <Link
+            key={item.id}
+            href={`/market/${item.id}`}
+            className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card shadow-xs transition-all hover:border-primary/40 hover:bg-muted/30 active:scale-[0.99]"
+          >
             <div>
-              <div className="flex items-center justify-between">
-                <Badge variant="secondary" className="text-[9px]">
-                  For {item.type}
-                </Badge>
-                <span className="text-[9px] text-muted-foreground">{item.category}</span>
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted/40">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 640px) 50vw, 210px"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute top-2 left-2">
+                  <Badge variant="secondary" className="bg-background/90 backdrop-blur-xs text-[9px] font-semibold border-border/60">
+                    For {item.type}
+                  </Badge>
+                </div>
               </div>
-              <p className="mt-1.5 text-xs font-semibold leading-snug text-foreground line-clamp-2">
-                {item.title}
-              </p>
+
+              <div className="p-2.5 space-y-1">
+                <span className="text-[9px] font-medium text-muted-foreground block truncate">
+                  {item.category}
+                </span>
+                <h3 className="text-xs font-bold leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                  {item.title}
+                </h3>
+              </div>
             </div>
-            <div className="pt-2 border-t border-border/50">
+
+            <div className="p-2.5 pt-0 space-y-1">
               <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
                 {item.price}
               </p>
-              <p className="text-[10px] text-muted-foreground flex items-center gap-0.5 mt-0.5">
-                <MapPin className="size-2.5" /> {item.location}
+              <p className="text-[10px] text-muted-foreground flex items-center gap-0.5 truncate border-t border-border/50 pt-1.5">
+                <MapPin className="size-2.5 shrink-0 text-muted-foreground/80" /> {item.location}
               </p>
-              <Button render={<a href={`tel:${item.phone}`} />} size="sm" variant="outline" className="w-full mt-2 h-7 text-[10px]">
-                Contact
-              </Button>
             </div>
-          </Card>
+          </Link>
         ))}
       </div>
     </div>
@@ -171,7 +184,7 @@ function MarketContent() {
 
 export default function MarketPage() {
   return (
-    <Suspense fallback={<div className="p-4 text-xs text-muted-foreground">Loading...</div>}>
+    <Suspense fallback={<div className="p-4 text-xs text-muted-foreground">Loading marketplace...</div>}>
       <MarketContent />
     </Suspense>
   );
