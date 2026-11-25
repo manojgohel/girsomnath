@@ -25,20 +25,13 @@ import {
   ComboboxItem,
   ComboboxEmpty
 } from "@/components/ui/combobox";
+import { TALUKAS } from "@/lib/constants";
 
 const CLASSIFIED_CATEGORIES = ["Jobs", "Real Estate", "Services", "Notices"];
 
 const CLASSIFIED_TAGS = ["Full-Time", "Part-Time", "Wanted", "Available", "Freelance", "Urgent"];
 
-const TALUKAS = [
-  "Veraval",
-  "Somnath",
-  "Talala",
-  "Kodinar",
-  "Una",
-  "Sutrapada",
-  "Gir Gadhada"
-];
+
 
 export default function PostClassifiedAdPage() {
   const router = useRouter();

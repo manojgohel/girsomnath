@@ -25,6 +25,7 @@ import {
   ComboboxItem,
   ComboboxEmpty
 } from "@/components/ui/combobox";
+import { TALUKAS } from "@/lib/constants";
 
 const MARKET_TYPES = ["Buy", "Sell", "Rent"];
 
@@ -38,15 +39,7 @@ const MARKET_CATEGORIES = [
   "Industrial Tools"
 ];
 
-const TALUKAS = [
-  "Veraval",
-  "Somnath",
-  "Talala",
-  "Kodinar",
-  "Una",
-  "Sutrapada",
-  "Gir Gadhada"
-];
+
 
 export default function PostMarketItemPage() {
   const router = useRouter();

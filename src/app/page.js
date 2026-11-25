@@ -10,99 +10,116 @@ import {
   MapPin,
   ShieldAlert,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Search,
+  ExternalLink,
+  Phone,
+  Flame,
+  ArrowUpRight
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { PwaInstallBanner } from "@/components/pwa-install-banner";
+import { TALUKAS } from "@/lib/constants";
 
-const TALUKAS = [
-  "Veraval",
-  "Somnath",
-  "Talala",
-  "Kodinar",
-  "Una",
-  "Sutrapada",
-  "Gir Gadhada"
-];
-
-const MAIN_MENU = [
+const MAIN_MODULES = [
   {
     href: "/directory",
-    label: "Directory",
+    title: "Business Directory",
+    desc: "Local shops, verified services, medical & offices",
+    badge: "Verified",
     icon: PhoneCall,
-    iconBg: "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+    iconColor: "text-blue-600 dark:text-blue-400",
+    gradient: "from-blue-500/10 via-sky-500/5 to-transparent",
+    borderHover: "hover:border-blue-500/40"
   },
   {
     href: "/events",
-    label: "Events",
+    title: "Events & Festivals",
+    desc: "Temple aarti, coastal expos & community fairs",
+    badge: "Upcoming",
     icon: Calendar,
-    iconBg: "bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400"
+    iconColor: "text-purple-600 dark:text-purple-400",
+    gradient: "from-purple-500/10 via-pink-500/5 to-transparent",
+    borderHover: "hover:border-purple-500/40"
   },
   {
     href: "/market",
-    label: "Market",
+    title: "Marketplace Rentals",
+    desc: "Tractors, warehouses, farm gear & orchards",
+    badge: "Rentals",
     icon: ShoppingBag,
-    iconBg: "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400"
+    iconColor: "text-emerald-600 dark:text-emerald-400",
+    gradient: "from-emerald-500/10 via-teal-500/5 to-transparent",
+    borderHover: "hover:border-emerald-500/40"
   },
   {
     href: "/classifieds",
-    label: "Classified Ads",
+    title: "Classifieds & Jobs",
+    desc: "Local job vacancies, flats, rentals & notices",
+    badge: "Active",
     icon: Megaphone,
-    iconBg: "bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400"
+    iconColor: "text-amber-600 dark:text-amber-400",
+    gradient: "from-amber-500/10 via-orange-500/5 to-transparent",
+    borderHover: "hover:border-amber-500/40"
   }
 ];
 
 const EMERGENCY_NUMBERS = [
-  { label: "Police", number: "100" },
-  { label: "Ambulance", number: "108" },
-  { label: "Fire", number: "101" },
-  { label: "Forest/Gir", number: "1926" }
+  { label: "Police Control", number: "100", sub: "District HQ" },
+  { label: "Ambulance", number: "108", sub: "Emergency Medical" },
+  { label: "Fire Station", number: "101", sub: "Disaster / Fire" },
+  { label: "Gir Forest Rescue", number: "1926", sub: "Lion & Wildlife" }
 ];
 
 export default function Home() {
   return (
-    <div className="flex flex-col space-y-3.5 px-3.5 py-2">
+    <div className="flex flex-col space-y-4 px-3.5 py-2.5">
       <PwaInstallBanner />
 
-      <div className="flex items-center justify-between rounded-2xl border border-border/80 bg-card p-3 shadow-xs">
-        <div className="flex items-center gap-2.5">
-          <Avatar className="size-9 border border-primary/20 bg-primary/10 text-primary">
+      <div className="flex items-center justify-between rounded-2xl border border-border/80 bg-card p-3.5 shadow-xs">
+        <div className="flex items-center gap-3 min-w-0">
+          <Avatar className="size-10 border border-primary/20 bg-primary/10 text-primary">
             <AvatarFallback className="font-bold text-xs bg-primary/10 text-primary">
-              XYZ
+              GS
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-[10px] text-muted-foreground leading-none">
+          <div className="flex flex-col min-w-0">
+            <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider leading-none">
               GirSomnath.in Portal
             </span>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <h1 className="text-sm font-bold text-foreground">
-                Welcome, XYZ
+            <div className="flex items-center gap-1.5 mt-1">
+              <h1 className="text-sm font-bold text-foreground truncate">
+                Welcome to Gir Somnath
               </h1>
-              <Badge variant="secondary" className="px-1.5 py-0 text-[9px] font-semibold">
+              <Badge variant="secondary" className="px-1.5 py-0 text-[9px] font-semibold shrink-0">
                 Citizen
               </Badge>
             </div>
           </div>
         </div>
-        <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
+        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full shrink-0">
           <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live Portal
         </span>
       </div>
 
-      <Card className="relative overflow-hidden border-border/80 bg-card p-4 gap-3 shadow-xs">
+      <Card className="relative overflow-hidden border-border/80 bg-card p-4 shadow-xs space-y-3.5">
         <div className="flex items-center justify-between">
-          <Badge variant="outline" className="gap-1 bg-muted/50 border-border/70 text-[10px]">
-            <Compass className="size-3 text-primary" /> Saurashtra Coast, Gujarat
+          <div className="flex items-center gap-1.5">
+            <span className="flex size-2 rounded-full bg-primary" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+              District Explorer
+            </span>
+          </div>
+          <Badge variant="outline" className="text-[10px] border-border/70 font-semibold">
+            Gujarat · GJ-32
           </Badge>
-          <span className="text-[10px] font-semibold text-muted-foreground">Code: GJ-32</span>
         </div>
 
         <div>
           <div className="flex items-center gap-1.5">
-            <h2 className="text-base font-bold text-foreground">
+            <h2 className="text-lg font-bold text-foreground tracking-tight">
               GirSomnath
             </h2>
             <Badge variant="default" className="px-1.5 py-0 text-[10px] font-bold">
@@ -110,25 +127,24 @@ export default function Home() {
             </Badge>
           </div>
           <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-            Your local guide to businesses, community events, marketplace rentals, job classifieds, and district happenings.
+            All-in-one digital district gateway connecting verified local merchants, cultural events, agriculture rentals, job vacancies, and travel sights.
           </p>
         </div>
 
-        <div className="border-t border-border/60 pt-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-[11px] font-semibold text-foreground uppercase tracking-wide">
-              District Talukas
+        <div className="border-t border-border/60 pt-3 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-semibold text-foreground flex items-center gap-1">
+              <MapPin className="size-3 text-primary" /> Browse by Taluka
             </span>
-            <span className="text-[10px] text-muted-foreground">Gir Somnath</span>
+            <span className="text-[10px] text-muted-foreground">7 Administrative Talukas</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {TALUKAS.map((taluka) => (
               <Link
                 key={taluka}
                 href={`/directory?taluka=${encodeURIComponent(taluka)}`}
-                className="inline-flex items-center gap-1 rounded-xl border border-border/80 bg-background px-2.5 py-1 text-[11px] font-medium text-foreground shadow-2xs transition-colors hover:border-primary/50 hover:bg-muted/40 active:scale-95"
+                className="inline-flex items-center gap-1 rounded-xl border border-border/80 bg-muted/30 px-2.5 py-1 text-[11px] font-medium text-foreground transition-all hover:bg-muted/70 hover:border-primary/40 active:scale-95 shadow-2xs"
               >
-                <MapPin className="size-3 text-primary shrink-0" />
                 <span>{taluka}</span>
               </Link>
             ))}
@@ -136,22 +152,47 @@ export default function Home() {
         </div>
       </Card>
 
-      <section className="space-y-2">
-        <div className="grid grid-cols-4 gap-2">
-          {MAIN_MENU.map((item, idx) => {
+      <section className="space-y-2.5">
+        <div className="flex items-center justify-between px-0.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+            <Flame className="size-3.5 text-primary" /> District Services
+          </span>
+          <span className="text-[10px] text-muted-foreground font-medium">Explore All 4 Pillars</span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2.5">
+          {MAIN_MODULES.map((item, idx) => {
             const Icon = item.icon;
             return (
               <Link
                 key={idx}
                 href={item.href}
-                className="group flex min-w-0 flex-col items-center justify-center rounded-2xl border border-border/80 bg-card p-2 text-center shadow-xs transition-all hover:bg-muted/40 hover:border-border active:scale-95"
+                className={`group relative flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-3.5 shadow-xs transition-all bg-linear-to-b ${item.gradient} ${item.borderHover} hover:shadow-sm active:scale-[0.98]`}
               >
-                <div className={`flex size-11 items-center justify-center rounded-xl transition-transform group-hover:scale-105 ${item.iconBg}`}>
-                  <Icon className="size-5 stroke-[2.2]" />
+                <div className="space-y-2">
+                  <div className="flex items-start justify-between">
+                    <div className="flex size-10 items-center justify-center rounded-xl bg-background border border-border/80 shadow-2xs group-hover:scale-105 transition-transform">
+                      <Icon className={`size-5 stroke-[2.2] ${item.iconColor}`} />
+                    </div>
+                    <Badge variant="secondary" className="text-[9px] px-1.5 py-0 font-semibold bg-background/80 border border-border/60">
+                      {item.badge}
+                    </Badge>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-[10.5px] text-muted-foreground mt-0.5 leading-snug line-clamp-2">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
-                  {item.label}
-                </span>
+
+                <div className="mt-2.5 pt-2 border-t border-border/50 flex items-center justify-between text-[10px] font-semibold text-muted-foreground group-hover:text-foreground">
+                  <span>Open Section</span>
+                  <ArrowUpRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                </div>
               </Link>
             );
           })}
@@ -186,41 +227,67 @@ export default function Home() {
         </Card>
       </Link>
 
-      <Card className="border-border/80 bg-card p-3 gap-2.5 shadow-xs">
+      <Card className="border-border/80 bg-card p-3.5 gap-3 shadow-xs">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <ShieldAlert className="size-4 text-amber-600 dark:text-amber-400" />
-            <span className="text-xs font-semibold text-foreground">
-              Emergency & Utility Helplines
-            </span>
+          <div className="flex items-center gap-2">
+            <div className="flex size-7 items-center justify-center rounded-lg bg-red-500/10 text-red-600 dark:text-red-400">
+              <ShieldAlert className="size-4" />
+            </div>
+            <div>
+              <h3 className="text-xs font-bold text-foreground leading-none">
+                Emergency & Helplines
+              </h3>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Direct 24/7 Government Assistance</p>
+            </div>
           </div>
-          <Badge variant="outline" className="text-[9px] border-border/70">24x7</Badge>
+          <Badge variant="outline" className="text-[9px] border-border/70 font-semibold bg-muted/40">
+            24x7 Free
+          </Badge>
         </div>
-        <div className="grid grid-cols-4 gap-1.5 text-center text-[10px]">
+
+        <div className="grid grid-cols-2 gap-2">
           {EMERGENCY_NUMBERS.map((item) => (
             <a
               key={item.label}
               href={`tel:${item.number}`}
-              className="rounded-xl bg-muted/40 p-1.5 font-medium border border-border/60 transition-colors hover:bg-muted hover:border-border active:scale-95 block"
+              className="flex items-center justify-between rounded-xl bg-muted/30 p-2.5 border border-border/70 hover:bg-muted/70 hover:border-primary/40 transition-colors active:scale-95"
             >
-              <p className="text-muted-foreground">{item.label}</p>
-              <p className="font-bold text-foreground">{item.number}</p>
+              <div className="min-w-0">
+                <p className="text-[11px] font-bold text-foreground truncate">{item.label}</p>
+                <p className="text-[9px] text-muted-foreground truncate">{item.sub}</p>
+              </div>
+              <div className="flex items-center gap-1 font-mono font-bold text-xs text-primary bg-primary/10 px-2 py-1 rounded-lg shrink-0">
+                <Phone className="size-3" />
+                <span>{item.number}</span>
+              </div>
             </a>
           ))}
         </div>
       </Card>
 
-      <Card className="overflow-hidden border-border/80 bg-card p-3 gap-2.5 shadow-xs">
+      <Card className="overflow-hidden border-border/80 bg-card p-3.5 gap-3 shadow-xs">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <MapPin className="size-4 text-primary" />
-            <span className="text-xs font-semibold text-foreground">
-              Gir Somnath District Map
-            </span>
+          <div className="flex items-center gap-2">
+            <div className="flex size-7 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <MapPin className="size-4" />
+            </div>
+            <div>
+              <h3 className="text-xs font-bold text-foreground leading-none">
+                District Interactive Map
+              </h3>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Explore Coastal Saurashtra Region</p>
+            </div>
           </div>
-          <Badge variant="outline" className="text-[9px] border-border/70">Gujarat</Badge>
+          <a
+            href="https://www.google.com/maps/place/Gir+Somnath,+Gujarat"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary hover:underline"
+          >
+            Full Map <ExternalLink className="size-3" />
+          </a>
         </div>
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/70 bg-muted/40">
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/70 bg-muted/40 shadow-inner">
           <iframe
             title="Gir Somnath District Map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d476686.0465355403!2d70.2928503859736!3d20.89201594951167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bfd2f1f440742f5%3A0xe7a508920bb35324!2sGir%20Somnath%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"

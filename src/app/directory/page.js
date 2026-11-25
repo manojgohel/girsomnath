@@ -82,6 +82,7 @@ function DirectoryContent() {
         icon={PhoneCall}
         action={
           <Button
+            nativeButton={false}
             render={<Link href="/directory/new" />}
             size="sm"
             className="h-8.5 rounded-full px-3.5 text-xs font-semibold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 shadow-sm gap-1"

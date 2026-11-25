@@ -1,18 +1,9 @@
 "use client";
 
-import { createContext, useContext, useState, useTransition } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { createContext, useContext, useState } from "react";
+import { TALUKAS, TALUKAS_LIST } from "@/lib/constants";
 
-export const TALUKAS_LIST = [
-  "All Talukas",
-  "Veraval",
-  "Somnath",
-  "Talala",
-  "Kodinar",
-  "Una",
-  "Sutrapada",
-  "Gir Gadhada"
-];
+export { TALUKAS, TALUKAS_LIST };
 
 const TalukaContext = createContext({
   selectedTaluka: "All Talukas",
@@ -23,39 +14,19 @@ const TalukaContext = createContext({
 });
 
 export function TalukaProvider({ children }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [, startTransition] = useTransition();
-
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [internalTaluka, setInternalTaluka] = useState(null);
-
-  const urlTaluka = searchParams.get("taluka");
-  const selectedTaluka = internalTaluka ?? urlTaluka ?? "All Talukas";
+  const [selectedTaluka, setSelectedTaluka] = useState("All Talukas");
 
   const selectTaluka = (taluka) => {
-    setInternalTaluka(taluka);
+    setSelectedTaluka(taluka);
     setIsPickerOpen(false);
-
-    startTransition(() => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (!taluka || taluka === "All Talukas") {
-        params.delete("taluka");
-      } else {
-        params.set("taluka", taluka);
-      }
-      const query = params.toString();
-      const targetPath = pathname === "/" ? "/directory" : pathname;
-      router.push(query ? `${targetPath}?${query}` : targetPath);
-    });
   };
 
   return (
     <TalukaContext.Provider
       value={{
         selectedTaluka,
-        setSelectedTaluka: setInternalTaluka,
+        setSelectedTaluka,
         isPickerOpen,
         setIsPickerOpen,
         selectTaluka

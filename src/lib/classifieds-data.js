@@ -130,3 +130,5 @@ export const ADS_DATA = [
     ]
   }
 ];
+
+export const CLASSIFIEDS_DATA = ADS_DATA;

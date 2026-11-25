@@ -35,15 +35,9 @@ const MAIN_NAV = [
   { title: "Classified Ads", url: "/classifieds", icon: Megaphone },
 ];
 
-const TOWNS = [
-  { name: "Veraval", count: "320" },
-  { name: "Somnath", count: "185" },
-  { name: "Talala", count: "140" },
-  { name: "Kodinar", count: "115" },
-  { name: "Una", count: "95" },
-  { name: "Sutrapada", count: "65" },
-  { name: "Gir Gadhada", count: "48" },
-];
+import { TALUKAS } from "@/lib/constants";
+
+const TOWNS = TALUKAS.map((name) => ({ name }));
 
 export function AppSidebar() {
   return (

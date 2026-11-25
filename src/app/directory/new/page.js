@@ -24,16 +24,7 @@ import {
   ComboboxItem,
   ComboboxEmpty
 } from "@/components/ui/combobox";
-
-const TALUKA_OPTIONS = [
-  "Veraval",
-  "Somnath",
-  "Talala",
-  "Kodinar",
-  "Una",
-  "Sutrapada",
-  "Gir Gadhada"
-];
+import { TALUKAS as TALUKA_OPTIONS } from "@/lib/constants";
 
 const CATEGORY_OPTIONS = [
   "CA",
