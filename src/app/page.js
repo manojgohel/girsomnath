@@ -13,6 +13,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { PwaInstallBanner } from "@/components/pwa-install-banner";
 
 const TALUKAS = [
   "Veraval",
@@ -61,6 +62,8 @@ const EMERGENCY_NUMBERS = [
 export default function Home() {
   return (
     <div className="flex flex-col space-y-3.5 px-3.5 py-2">
+      <PwaInstallBanner />
+
       <div className="flex items-center justify-between rounded-2xl border border-border/80 bg-card p-3 shadow-xs">
         <div className="flex items-center gap-2.5">
           <Avatar className="size-9 border border-primary/20 bg-primary/10 text-primary">
