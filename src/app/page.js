@@ -2,35 +2,15 @@
 
 import Link from "next/link";
 import {
-  Search,
   Calendar,
   ShoppingBag,
   Megaphone,
   PhoneCall,
-  ArrowRight,
-  Calculator,
-  Scale,
-  Store,
-  Pill,
-  Hospital,
-  Building2,
-  Landmark,
-  Wrench,
-  Flame,
-  Sparkles,
-  Presentation,
-  Coins,
-  KeyRound,
-  Briefcase,
-  Building,
-  Hammer,
-  LayoutGrid,
   Compass,
-  MapPin
+  MapPin,
+  ShieldAlert
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
@@ -44,130 +24,38 @@ const TALUKAS = [
   "Gir Gadhada"
 ];
 
-const DIRECTORY_MENU = [
+const MAIN_MENU = [
   {
-    href: "/directory?category=CA",
-    label: "CA",
-    icon: Calculator,
+    href: "/directory",
+    label: "Directory",
+    icon: PhoneCall,
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200/50 dark:border-blue-900/40"
   },
   {
-    href: "/directory?category=Advocates",
-    label: "Advocates",
-    icon: Scale,
-    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/50 dark:border-indigo-900/40"
-  },
-  {
-    href: "/directory?category=Shops",
-    label: "Shops",
-    icon: Store,
-    color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50 dark:border-amber-900/40"
-  },
-  {
-    href: "/directory?category=Medical+Stores",
-    label: "Medical Stores",
-    icon: Pill,
-    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40"
-  },
-  {
-    href: "/directory?category=Hospitals",
-    label: "Hospitals",
-    icon: Hospital,
-    color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200/50 dark:border-rose-900/40"
-  },
-  {
-    href: "/directory?category=Shopping+Malls",
-    label: "Shopping Malls",
-    icon: Building2,
+    href: "/events",
+    label: "Events",
+    icon: Calendar,
     color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-900/40"
   },
   {
-    href: "/directory?category=Govt+Offices",
-    label: "Govt Offices",
-    icon: Landmark,
-    color: "bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-200/50 dark:border-slate-800/40"
-  },
-  {
-    href: "/directory?category=Garages",
-    label: "Garages",
-    icon: Wrench,
-    color: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-900/40"
-  },
-  {
-    href: "/directory?category=Temples",
-    label: "Temples/Dargas",
-    icon: Flame,
-    color: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-200/50 dark:border-yellow-900/40"
-  }
-];
-
-const EVENTS_MENU = [
-  {
-    href: "/events?tag=Festival",
-    label: "Festivals",
-    icon: Sparkles,
-    color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-900/40"
-  },
-  {
-    href: "/events?tag=Exhibition",
-    label: "Exhibition",
-    icon: Presentation,
-    color: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-200/50 dark:border-sky-900/40"
-  },
-  {
-    href: "/events?tag=Tour",
-    label: "Tours",
-    icon: Compass,
-    color: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-200/50 dark:border-teal-900/40"
-  }
-];
-
-const MARKET_MENU = [
-  {
-    href: "/market?type=Buy",
-    label: "Buy",
+    href: "/market",
+    label: "Market",
     icon: ShoppingBag,
     color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40"
   },
   {
-    href: "/market?type=Sell",
-    label: "Sell",
-    icon: Coins,
+    href: "/classifieds",
+    label: "Classified Ads",
+    icon: Megaphone,
     color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50 dark:border-amber-900/40"
-  },
-  {
-    href: "/market?type=Rent",
-    label: "Rent",
-    icon: KeyRound,
-    color: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-200/50 dark:border-cyan-900/40"
   }
 ];
 
-const CLASSIFIEDS_MENU = [
-  {
-    href: "/classifieds?category=Jobs",
-    label: "Jobs",
-    icon: Briefcase,
-    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200/50 dark:border-blue-900/40"
-  },
-  {
-    href: "/classifieds?category=Real+Estate",
-    label: "Real Estate",
-    icon: Building,
-    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-900/40"
-  },
-  {
-    href: "/classifieds?category=Services",
-    label: "Services",
-    icon: Hammer,
-    color: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-900/40"
-  },
-  {
-    href: "/classifieds",
-    label: "All Ads",
-    icon: LayoutGrid,
-    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/50 dark:border-indigo-900/40"
-  }
+const EMERGENCY_NUMBERS = [
+  { label: "Police", number: "100" },
+  { label: "Ambulance", number: "108" },
+  { label: "Fire", number: "101" },
+  { label: "Forest/Gir", number: "1926" }
 ];
 
 export default function Home() {
@@ -197,15 +85,6 @@ export default function Home() {
         <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
           <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live Portal
         </span>
-      </div>
-
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-        <Input
-          type="search"
-          placeholder="Search directory, events, market, ads..."
-          className="h-10 pl-9 rounded-xl bg-muted/40 text-xs shadow-xs"
-        />
       </div>
 
       <Card className="relative overflow-hidden border-border/80 bg-gradient-to-br from-amber-500/15 via-primary/5 to-card p-4 gap-3 shadow-xs">
@@ -253,22 +132,8 @@ export default function Home() {
       </Card>
 
       <section className="space-y-2">
-        <div className="flex items-center justify-between px-0.5">
-          <div className="flex items-center gap-1.5">
-            <PhoneCall className="size-4 text-primary" />
-            <h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
-              Directory
-            </h2>
-          </div>
-          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
-            <Link href="/directory">
-              View All <ArrowRight className="size-3" />
-            </Link>
-          </Button>
-        </div>
-
         <div className="grid grid-cols-4 gap-2">
-          {DIRECTORY_MENU.map((item, idx) => {
+          {MAIN_MENU.map((item, idx) => {
             const Icon = item.icon;
             return (
               <Link
@@ -276,7 +141,7 @@ export default function Home() {
                 href={item.href}
                 className="group flex min-w-0 flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
               >
-                <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
+                <div className={`flex size-11 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
                   <Icon className="size-5" />
                 </div>
                 <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
@@ -288,113 +153,55 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="space-y-2">
-        <div className="flex items-center justify-between px-0.5">
+      <Card className="border-border/80 bg-muted/30 p-3 gap-2.5 shadow-xs">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <Calendar className="size-4 text-primary" />
-            <h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
-              Events
-            </h2>
+            <ShieldAlert className="size-4 text-amber-600 dark:text-amber-400" />
+            <span className="text-xs font-semibold text-foreground">
+              Emergency & Utility Helplines
+            </span>
           </div>
-          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
-            <Link href="/events">
-              View All <ArrowRight className="size-3" />
-            </Link>
-          </Button>
+          <Badge variant="outline" className="text-[9px]">24x7</Badge>
         </div>
-
-        <div className="grid grid-cols-4 gap-2">
-          {EVENTS_MENU.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={idx}
-                href={item.href}
-                className="group flex min-w-0 flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
-              >
-                <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
-                  <Icon className="size-5" />
-                </div>
-                <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
-                  {item.label}
-                </span>
-              </Link>
-            );
-          })}
+        <div className="grid grid-cols-4 gap-1.5 text-center text-[10px]">
+          {EMERGENCY_NUMBERS.map((item) => (
+            <a
+              key={item.label}
+              href={`tel:${item.number}`}
+              className="rounded-lg bg-background p-1.5 font-medium border border-border/50 transition-colors hover:bg-secondary active:scale-95 block"
+            >
+              <p className="text-muted-foreground">{item.label}</p>
+              <p className="font-bold text-foreground">{item.number}</p>
+            </a>
+          ))}
         </div>
-      </section>
+      </Card>
 
-      <section className="space-y-2">
-        <div className="flex items-center justify-between px-0.5">
+      <Card className="overflow-hidden border-border/80 bg-card p-3 gap-2.5 shadow-xs">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <ShoppingBag className="size-4 text-primary" />
-            <h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
-              Market
-            </h2>
+            <MapPin className="size-4 text-primary" />
+            <span className="text-xs font-semibold text-foreground">
+              Gir Somnath District Map
+            </span>
           </div>
-          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
-            <Link href="/market">
-              View All <ArrowRight className="size-3" />
-            </Link>
-          </Button>
+          <Badge variant="outline" className="text-[9px]">Gujarat</Badge>
         </div>
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/70 bg-muted">
+          <iframe
+            title="Gir Somnath District Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d476686.0465355403!2d70.2928503859736!3d20.89201594951167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bfd2f1f440742f5%3A0xe7a508920bb35324!2sGir%20Somnath%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            className="size-full border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+      </Card>
 
-        <div className="grid grid-cols-4 gap-2">
-          {MARKET_MENU.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={idx}
-                href={item.href}
-                className="group flex min-w-0 flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
-              >
-                <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
-                  <Icon className="size-5" />
-                </div>
-                <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
-                  {item.label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="space-y-2">
-        <div className="flex items-center justify-between px-0.5">
-          <div className="flex items-center gap-1.5">
-            <Megaphone className="size-4 text-primary" />
-            <h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
-              Classifieds Ads
-            </h2>
-          </div>
-          <Button asChild variant="link" size="sm" className="h-auto p-0 text-[11px] font-semibold gap-0.5">
-            <Link href="/classifieds">
-              View All <ArrowRight className="size-3" />
-            </Link>
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-4 gap-2">
-          {CLASSIFIEDS_MENU.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={idx}
-                href={item.href}
-                className="group flex min-w-0 flex-col items-center justify-center rounded-2xl border border-border/70 bg-card p-2 text-center shadow-xs transition-all hover:border-primary/40 hover:bg-muted/40 active:scale-95"
-              >
-                <div className={`flex size-10 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 ${item.color}`}>
-                  <Icon className="size-5" />
-                </div>
-                <span className="mt-1.5 block w-full truncate text-[11px] font-semibold text-foreground">
-                  {item.label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      <p className="text-[10px] text-center text-muted-foreground leading-relaxed px-2 pb-2">
+        GirSomnath.in is an independent community portal and is not an official government website or affiliated with any government department, entity, or scheme. It is an informational directory and utility platform for the citizens of Gir Somnath district.
+      </p>
     </div>
   );
 }
