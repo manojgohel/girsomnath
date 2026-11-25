@@ -20,7 +20,7 @@ export function MobileHeader() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-40 w-full shrink-0 border-b border-border/80 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
       <div className="flex h-14 w-full items-center justify-between px-3">
         <div className="flex items-center gap-2">
           <SidebarTrigger />
