@@ -17,6 +17,7 @@ import { useTaluka, TALUKAS_LIST } from "./taluka-provider";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Logo } from "@/components/logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,19 +47,7 @@ export function MobileHeader() {
         <div className="flex h-14 w-full items-center justify-between px-3">
           <div className="flex items-center gap-2 min-w-0">
             <SidebarTrigger />
-            <Link href="/" className="flex flex-col shrink-0">
-              <div className="flex items-center gap-1">
-                <span className="font-heading text-base font-bold tracking-tight text-foreground">
-                  Gir Somnath
-                </span>
-                <Badge variant="default" className="px-1.5 py-0 text-[10px] font-bold">
-                  .in
-                </Badge>
-              </div>
-              <span className="text-[10px] leading-none text-muted-foreground">
-                District Portal
-              </span>
-            </Link>
+            <Logo />
           </div>
 
           <div className="flex items-center gap-1 shrink-0">

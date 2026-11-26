@@ -1,6 +1,5 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { PortalLayout } from "@/components/portal-layout";
 import { ServiceWorkerRegister } from "@/components/sw-register";
 
 const roboto = Roboto({
@@ -18,7 +17,7 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: "Gir Somnath.in - District Portal",
+  title: "Gir Somnath.in - District Community Portal",
   description: "Directory, Events, Market and Classifieds for Gir Somnath District",
   manifest: "/manifest.json",
   icons: {
@@ -41,7 +40,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full bg-background text-foreground font-sans overflow-x-hidden">
         <ServiceWorkerRegister />
-        <PortalLayout>{children}</PortalLayout>
+        {children}
       </body>
     </html>
   );

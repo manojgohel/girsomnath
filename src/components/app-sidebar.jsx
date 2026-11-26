@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   Compass,
   MapPin,
@@ -26,6 +27,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Logo } from "@/components/logo";
 
 const MAIN_NAV = [
   { title: "Home", url: "/", icon: Compass },
@@ -43,26 +45,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="offcanvas" className="border-r border-border">
       <SidebarHeader className="border-b border-border p-4">
-        <div className="flex items-center gap-3">
-          <Avatar className="size-9 rounded-lg bg-primary text-primary-foreground font-bold">
-            <AvatarFallback className="rounded-lg bg-primary text-primary-foreground text-xs font-bold">
-              GS
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-1">
-              <span className="font-heading text-base font-bold text-foreground">
-                Gir Somnath
-              </span>
-              <Badge variant="default" className="px-1.5 py-0 text-[10px] font-bold">
-                .in
-              </Badge>
-            </div>
-            <span className="text-[11px] text-muted-foreground">
-              District Community Portal
-            </span>
-          </div>
-        </div>
+        <Logo showIcon size="default" />
       </SidebarHeader>
 
       <SidebarContent className="px-2 py-3">

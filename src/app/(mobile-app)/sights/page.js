@@ -59,7 +59,7 @@ export default function SightsPage() {
         {filtered.map((sight) => (
           <Card
             key={sight.id}
-            className="overflow-hidden border-border/80 bg-card shadow-xs rounded-2xl flex flex-col"
+            className="overflow-hidden border-border/80 bg-card shadow-xs rounded-2xl flex flex-col pt-0 gap-0"
           >
             <div className="relative aspect-16/9 w-full bg-muted/40 overflow-hidden">
               <Image
