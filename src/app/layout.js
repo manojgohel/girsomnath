@@ -10,6 +10,13 @@ const roboto = Roboto({
   display: "swap",
 });
 
+export const viewport = {
+  themeColor: "#000000",
+  viewportFit: "cover",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata = {
   title: "Gir Somnath.in - District Portal",
   description: "Directory, Events, Market and Classifieds for Gir Somnath District",
@@ -20,7 +27,7 @@ export const metadata = {
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "Gir Somnath"
   }
 };

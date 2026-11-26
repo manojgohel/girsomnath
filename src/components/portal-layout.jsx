@@ -15,6 +15,7 @@ export function PortalLayout({ children }) {
           <AppSidebar />
           <SidebarInset className="h-dvh w-full bg-background flex flex-col items-center overflow-hidden sm:bg-zinc-100 dark:sm:bg-zinc-950">
             <div className="relative flex h-full w-full flex-col bg-background sm:max-w-md sm:border-x sm:border-border sm:shadow-lg overflow-hidden">
+              <div className="w-full h-[env(safe-area-inset-top)] bg-black shrink-0" />
               <Suspense fallback={<div className="h-14 w-full border-b border-border/80 bg-background" />}>
                 <TalukaProvider>
                   <MobileHeader />
@@ -26,6 +27,7 @@ export function PortalLayout({ children }) {
               <Suspense fallback={<div className="h-16 w-full border-t border-border bg-background" />}>
                 <MobileFooter />
               </Suspense>
+              <div className="w-full h-[env(safe-area-inset-bottom)] bg-black shrink-0" />
             </div>
           </SidebarInset>
         </SidebarProvider>
