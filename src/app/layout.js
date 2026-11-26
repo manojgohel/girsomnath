@@ -14,6 +14,10 @@ export const metadata = {
   title: "Gir Somnath.in - District Portal",
   description: "Directory, Events, Market and Classifieds for Gir Somnath District",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/icons/icon-192x192.png",
+    apple: "/apple-touch-icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

@@ -1,7 +1,8 @@
 "use client";
 
 import { useSyncExternalStore, useState, useEffect } from "react";
-import { Download, X, Smartphone } from "lucide-react";
+import Image from "next/image";
+import { Download, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 function subscribeStandalone(callback) {
@@ -72,8 +73,14 @@ export function PwaInstallBanner() {
   return (
     <div className="relative flex items-center justify-between gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 dark:bg-emerald-950/40 p-3 shadow-xs">
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs">
-          <Smartphone className="size-4.5" />
+        <div className="relative flex size-9 shrink-0 items-center justify-center rounded-xl overflow-hidden border border-amber-600/30 bg-background shadow-xs">
+          <Image
+            src="/icons/icon-192x192.png"
+            alt="Gir Somnath App Icon"
+            width={36}
+            height={36}
+            className="object-cover"
+          />
         </div>
         <div className="flex flex-col min-w-0">
           <span className="text-xs font-bold text-foreground truncate">
