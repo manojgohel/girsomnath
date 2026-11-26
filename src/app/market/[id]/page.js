@@ -103,7 +103,7 @@ async function MarketDetailContent({ params }) {
               render={
                 <a
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                    `Hello, I saw your listing "${item.title}" (${item.price}) on GirSomnath.in marketplace.`
+                    `Hello, I saw your listing "${item.title}" (${item.price}) on Gir Somnath.in marketplace.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

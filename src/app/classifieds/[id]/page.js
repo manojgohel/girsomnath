@@ -109,7 +109,7 @@ async function ClassifiedDetailContent({ params }) {
               render={
                 <a
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                    `Hello, I am contacting you regarding your classified ad "${ad.title}" on GirSomnath.in.`
+                    `Hello, I am contacting you regarding your classified ad "${ad.title}" on Gir Somnath.in.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

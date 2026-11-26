@@ -77,7 +77,7 @@ export function PwaInstallBanner() {
         </div>
         <div className="flex flex-col min-w-0">
           <span className="text-xs font-bold text-foreground truncate">
-            Install GirSomnath App
+            Install Gir Somnath App
           </span>
           <span className="text-[11px] text-muted-foreground truncate">
             Fast access, offline mode & district updates

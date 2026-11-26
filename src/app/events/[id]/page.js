@@ -126,7 +126,7 @@ async function EventDetailContent({ params }) {
               render={
                 <a
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                    `Hello, I would like more information regarding the event "${event.title}" on GirSomnath.in.`
+                    `Hello, I would like more information regarding the event "${event.title}" on Gir Somnath.in.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

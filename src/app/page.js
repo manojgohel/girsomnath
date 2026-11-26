@@ -127,7 +127,7 @@ export default function Home() {
         <div>
           <div className="flex items-center gap-1.5">
             <h2 className="text-base font-bold text-foreground tracking-tight font-serif leading-none">
-              GirSomnath
+              Gir Somnath
             </h2>
             <Badge className="bg-amber-600 text-white px-1.5 py-0 text-[10px] font-bold hover:bg-amber-700">
               .in
@@ -326,7 +326,7 @@ export default function Home() {
       </Card>
 
       <p className="text-[10px] text-center text-muted-foreground leading-relaxed px-2">
-        GirSomnath.in is an independent community portal and is not an official government website or affiliated with any government department, entity, or scheme. It is an informational directory and utility platform for the citizens of Gir Somnath district.
+        Gir Somnath.in is an independent community portal and is not an official government website or affiliated with any government department, entity, or scheme. It is an informational directory and utility platform for the citizens of Gir Somnath district.
       </p>
 
       <div className="-mx-3.5 -mb-4 overflow-hidden pt-2">

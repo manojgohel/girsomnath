@@ -52,7 +52,7 @@ export function AppSidebar() {
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
               <span className="font-heading text-base font-bold text-foreground">
-                GirSomnath
+                Gir Somnath
               </span>
               <Badge variant="default" className="px-1.5 py-0 text-[10px] font-bold">
                 .in

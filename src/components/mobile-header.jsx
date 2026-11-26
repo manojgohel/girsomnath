@@ -49,7 +49,7 @@ export function MobileHeader() {
             <Link href="/" className="flex flex-col shrink-0">
               <div className="flex items-center gap-1">
                 <span className="font-heading text-base font-bold tracking-tight text-foreground">
-                  GirSomnath
+                  Gir Somnath
                 </span>
                 <Badge variant="default" className="px-1.5 py-0 text-[10px] font-bold">
                   .in
@@ -68,11 +68,10 @@ export function MobileHeader() {
               size="sm"
               onClick={() => setIsPickerOpen(true)}
               aria-label="Select Taluka"
-              className={`h-8 gap-1 rounded-full px-2.5 text-xs font-medium transition-all ${
-                isFiltered
+              className={`h-8 gap-1 rounded-full px-2.5 text-xs font-medium transition-all ${isFiltered
                   ? "border-primary bg-primary/10 text-primary hover:bg-primary/20"
                   : "border-border/80 bg-muted/40 text-foreground hover:bg-muted"
-              }`}
+                }`}
             >
               <MapPin className={`size-3.5 shrink-0 ${isFiltered ? "text-primary" : "text-muted-foreground"}`} />
               <span className="max-w-[70px] truncate text-[11px]">
@@ -148,11 +147,10 @@ export function MobileHeader() {
                   type="button"
                   variant={active ? "default" : "outline"}
                   onClick={() => selectTaluka(taluka)}
-                  className={`h-10 justify-between rounded-xl px-3 text-xs font-medium ${
-                    active
+                  className={`h-10 justify-between rounded-xl px-3 text-xs font-medium ${active
                       ? "shadow-xs"
                       : "border-border/80 bg-background hover:bg-muted"
-                  }`}
+                    }`}
                 >
                   <span className="flex items-center gap-1.5 truncate">
                     <MapPin className={`size-3.5 shrink-0 ${active ? "text-primary-foreground" : "text-muted-foreground"}`} />

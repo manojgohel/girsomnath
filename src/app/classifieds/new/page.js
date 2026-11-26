@@ -82,7 +82,7 @@ export default function PostClassifiedAdPage() {
           </div>
           <h2 className="text-sm font-bold text-foreground">Classified Ad Published</h2>
           <p className="text-xs text-muted-foreground">
-            Your advertisement is now live on Gir Somnath portal. Redirecting...
+            Your advertisement is now live on Gir Somnath. Redirecting...
           </p>
         </Card>
       ) : (

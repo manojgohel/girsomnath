@@ -103,7 +103,7 @@ async function DirectoryDetailContent({ params }) {
             render={
               <a
                 href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                  `Hello ${item.name}, I found your contact on GirSomnath.in district directory.`
+                  `Hello ${item.name}, I found your contact on Gir Somnath.in district directory.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

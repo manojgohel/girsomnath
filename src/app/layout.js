@@ -11,13 +11,13 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "GirSomnath.in - District Portal",
+  title: "Gir Somnath.in - District Portal",
   description: "Directory, Events, Market and Classifieds for Gir Somnath District",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "GirSomnath"
+    title: "Gir Somnath"
   }
 };
 
