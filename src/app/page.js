@@ -25,8 +25,9 @@ import { TALUKAS } from "@/lib/constants";
 
 const CULTURAL_STATS = [
   { label: "Jyotirlinga", value: "1st of 12", sub: "Somnath Mahadev" },
+  { label: "Gir Kesar", value: "GI-Tagged", sub: "Talala Mango Hub" },
   { label: "Wildlife Home", value: "Asiatic Lion", sub: "Gir Forest Sanctuary" },
-  { label: "Coastline", value: "Arabian Sea", sub: "Ancient Port Region" }
+  { label: "Coastline", value: "Arabian Sea", sub: "Port & Fisheries" }
 ];
 
 const MAIN_MODULES = [
@@ -100,7 +101,7 @@ export default function Home() {
                 Welcome to Gir Somnath
               </h1>
               <span className="text-[10px] text-muted-foreground mt-0.5">
-                Land of Jyotirlinga, Asiatic Lions & Saurashtra Heritage
+                Land of Somnath Jyotirlinga, Gir Kesar Mango & Asiatic Lions
               </span>
             </div>
           </div>
@@ -137,19 +138,19 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-1.5 pt-1.5 border-t border-amber-500/20">
+        <div className="grid grid-cols-4 gap-1 pt-1.5 border-t border-amber-500/20">
           {CULTURAL_STATS.map((stat, idx) => (
             <div
               key={idx}
-              className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-1.5 text-center"
+              className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-1 text-center"
             >
-              <p className="text-[9px] uppercase font-bold text-amber-800 dark:text-amber-300">
+              <p className="text-[8.5px] uppercase font-bold text-amber-800 dark:text-amber-300 truncate">
                 {stat.label}
               </p>
-              <p className="text-[11px] font-bold text-foreground truncate">
+              <p className="text-[10.5px] font-bold text-foreground truncate">
                 {stat.value}
               </p>
-              <p className="text-[8.5px] text-muted-foreground truncate">
+              <p className="text-[8px] text-muted-foreground truncate">
                 {stat.sub}
               </p>
             </div>
