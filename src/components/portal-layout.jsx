@@ -23,7 +23,9 @@ export function PortalLayout({ children }) {
               <div className="flex-1 w-full overflow-y-auto overscroll-contain pb-4 pt-1">
                 {children}
               </div>
-              <MobileFooter />
+              <Suspense fallback={<div className="h-16 w-full border-t border-border bg-background" />}>
+                <MobileFooter />
+              </Suspense>
             </div>
           </SidebarInset>
         </SidebarProvider>

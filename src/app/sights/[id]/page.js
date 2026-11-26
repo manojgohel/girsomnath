@@ -17,6 +17,12 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SIGHTS_DATA } from "@/lib/sights-data";
 
+export function generateStaticParams() {
+  return SIGHTS_DATA.map((entry) => ({
+    id: entry.id
+  }));
+}
+
 async function SightDetailContent({ params }) {
   const { id } = await params;
   const sight = SIGHTS_DATA.find((entry) => entry.id === id);
