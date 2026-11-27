@@ -25,13 +25,11 @@ import {
   ComboboxItem,
   ComboboxEmpty
 } from "@/components/ui/combobox";
-import { TALUKAS } from "@/lib/constants";
-
-const CLASSIFIED_CATEGORIES = ["Jobs", "Real Estate", "Services", "Notices"];
-
-const CLASSIFIED_TAGS = ["Full-Time", "Part-Time", "Wanted", "Available", "Freelance", "Urgent"];
-
-
+import {
+  TALUKAS,
+  CLASSIFIED_CATEGORIES,
+  CLASSIFIED_TAGS,
+} from "@/lib/constants";
 
 export default function PostClassifiedAdPage() {
   const router = useRouter();
@@ -168,7 +166,7 @@ export default function PostClassifiedAdPage() {
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-foreground">Location (Taluka) *</label>
                 <Combobox
-                  items={TALUKAS}
+                  items={TALUKAS.map((t) => t.name)}
                   value={formData.location}
                   onValueChange={(val) => val && setFormData({ ...formData, location: val })}
                 >
@@ -180,8 +178,8 @@ export default function PostClassifiedAdPage() {
                     <ComboboxEmpty>No taluka found.</ComboboxEmpty>
                     <ComboboxList>
                       {TALUKAS.map((taluka) => (
-                        <ComboboxItem key={taluka} value={taluka}>
-                          {taluka}
+                        <ComboboxItem key={taluka.id} value={taluka.name}>
+                          {taluka.name}
                         </ComboboxItem>
                       ))}
                     </ComboboxList>

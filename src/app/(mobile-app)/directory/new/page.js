@@ -13,12 +13,20 @@ import {
   Loader2,
   AlertCircle,
   Link2,
+  Copy,
+  Check,
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import {
   Combobox,
   ComboboxInput,
@@ -27,25 +35,16 @@ import {
   ComboboxItem,
   ComboboxEmpty,
 } from "@/components/ui/combobox";
-import { TALUKAS as TALUKA_OPTIONS } from "@/lib/constants";
+import {
+  TALUKAS as TALUKA_OPTIONS,
+  DIRECTORY_CATEGORY_OPTIONS as CATEGORY_OPTIONS,
+} from "@/lib/constants";
 import { OperatingHoursInput } from "@/components/operating-hours-input";
 import {
   createDirectoryAction,
   resolveSlugForNameAction,
   checkSlugAvailabilityAction,
 } from "@/actions/directory-actions";
-
-const CATEGORY_OPTIONS = [
-  "CA",
-  "Advocates",
-  "Shops",
-  "Medical Stores",
-  "Hospitals",
-  "Shopping Malls",
-  "Govt Offices",
-  "Garages",
-  "Temples",
-];
 
 export default function AddContactPage() {
   const router = useRouter();
@@ -54,6 +53,7 @@ export default function AddContactPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [checkingSlug, setCheckingSlug] = useState(false);
   const [slugStatus, setSlugStatus] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -200,10 +200,17 @@ export default function AddContactPage() {
                 ) : null}
               </div>
 
-              <div className="flex items-center rounded-xl bg-muted/30 border border-border/70 px-3 text-xs text-muted-foreground focus-within:ring-2 focus-within:ring-primary/20">
-                <span className="shrink-0 select-none text-[11px]">/directory/</span>
-                <input
-                  type="text"
+              <InputGroup className="h-9.5 rounded-xl border border-border/70 bg-muted/30">
+                <InputGroupAddon className="pl-2.5 pr-0 text-xs text-muted-foreground select-none">
+                  https://
+                </InputGroupAddon>
+                <InputGroupAddon className="px-0 text-xs text-muted-foreground/80 select-none hidden sm:inline-flex">
+                  girsomnath.in/directory/
+                </InputGroupAddon>
+                <InputGroupAddon className="px-0 text-xs text-muted-foreground/80 select-none sm:hidden">
+                  .../directory/
+                </InputGroupAddon>
+                <InputGroupInput
                   placeholder="somnath-agro-equipment"
                   value={formData.slug}
                   onChange={(e) =>
@@ -213,16 +220,38 @@ export default function AddContactPage() {
                     })
                   }
                   onBlur={handleSlugBlur}
-                  className="h-9.5 w-full bg-transparent text-xs text-foreground outline-hidden pl-1"
+                  className="text-xs font-mono pl-1"
                 />
-              </div>
+                {formData.slug && (
+                  <InputGroupAddon align="inline-end" className="pr-1.5">
+                    <InputGroupButton
+                      size="icon-xs"
+                      aria-label="Copy URL"
+                      title="Copy URL"
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          `https://girsomnath.in/directory/${formData.slug}`
+                        );
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 1500);
+                      }}
+                    >
+                      {copied ? (
+                        <Check className="size-3.5 text-emerald-600" />
+                      ) : (
+                        <Copy className="size-3.5 text-muted-foreground" />
+                      )}
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                )}
+              </InputGroup>
             </div>
 
             <div className="grid grid-cols-2 gap-2.5">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-foreground">Category *</label>
                 <Combobox
-                  items={CATEGORY_OPTIONS}
+                  items={CATEGORY_OPTIONS.map((c) => (typeof c === "object" ? c.name : c))}
                   value={formData.category}
                   onValueChange={(val) => val && setFormData({ ...formData, category: val })}
                 >
@@ -233,11 +262,15 @@ export default function AddContactPage() {
                   <ComboboxContent>
                     <ComboboxEmpty>No category found.</ComboboxEmpty>
                     <ComboboxList>
-                      {CATEGORY_OPTIONS.map((cat) => (
-                        <ComboboxItem key={cat} value={cat}>
-                          {cat}
-                        </ComboboxItem>
-                      ))}
+                      {CATEGORY_OPTIONS.map((cat) => {
+                        const id = typeof cat === "object" ? cat.id : cat;
+                        const name = typeof cat === "object" ? cat.name : cat;
+                        return (
+                          <ComboboxItem key={id} value={name}>
+                            {name}
+                          </ComboboxItem>
+                        );
+                      })}
                     </ComboboxList>
                   </ComboboxContent>
                 </Combobox>
@@ -246,7 +279,7 @@ export default function AddContactPage() {
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-foreground">Taluka *</label>
                 <Combobox
-                  items={TALUKA_OPTIONS}
+                  items={TALUKA_OPTIONS.map((t) => t.name)}
                   value={formData.taluka}
                   onValueChange={(val) =>
                     val && setFormData({ ...formData, taluka: val, town: val })
@@ -260,8 +293,8 @@ export default function AddContactPage() {
                     <ComboboxEmpty>No taluka found.</ComboboxEmpty>
                     <ComboboxList>
                       {TALUKA_OPTIONS.map((taluka) => (
-                        <ComboboxItem key={taluka} value={taluka}>
-                          {taluka}
+                        <ComboboxItem key={taluka.id} value={taluka.name}>
+                          {taluka.name}
                         </ComboboxItem>
                       ))}
                     </ComboboxList>

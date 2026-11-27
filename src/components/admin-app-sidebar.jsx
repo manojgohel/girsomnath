@@ -3,15 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  LayoutDashboard,
-  Users,
-  PhoneCall,
-  Calendar,
-  ShoppingBag,
-  Megaphone,
-  Command,
-} from "lucide-react";
+import { Command } from "lucide-react";
 
 import { NavAdminMenu } from "@/components/nav-admin-menu";
 import { NavUser } from "@/components/nav-user";
@@ -24,6 +16,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { ADMIN_NAV_ITEMS } from "@/lib/constants";
 
 const data = {
   user: {
@@ -38,38 +31,7 @@ const data = {
       plan: "Collectorate Portal",
     },
   ],
-  navItems: [
-    {
-      title: "Dashboard",
-      url: "/admin",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Users",
-      url: "/admin/users",
-      icon: Users,
-    },
-    {
-      title: "Directory",
-      url: "/admin/directory",
-      icon: PhoneCall,
-    },
-    {
-      title: "Events",
-      url: "/admin/events",
-      icon: Calendar,
-    },
-    {
-      title: "Marketplace",
-      url: "/admin/marketplace",
-      icon: ShoppingBag,
-    },
-    {
-      title: "Classified Ads",
-      url: "/admin/classifieds",
-      icon: Megaphone,
-    },
-  ],
+  navItems: ADMIN_NAV_ITEMS,
 };
 
 function AdminHeaderContent() {

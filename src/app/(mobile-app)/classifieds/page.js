@@ -22,13 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ADS_DATA } from "@/lib/classifieds-data";
-
-const CLASSIFIEDS_MENU = [
-  { id: "All", label: "All Ads", icon: LayoutGrid, iconBg: "bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100" },
-  { id: "Jobs", label: "Jobs", icon: Briefcase, iconBg: "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400" },
-  { id: "Real Estate", label: "Real Estate", icon: Building, iconBg: "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400" },
-  { id: "Services", label: "Services", icon: Hammer, iconBg: "bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400" }
-];
+import { CLASSIFIEDS_MENU } from "@/lib/constants";
 
 function ClassifiedsContent() {
   const searchParams = useSearchParams();

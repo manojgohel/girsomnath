@@ -39,7 +39,7 @@ const MAIN_NAV = [
 
 import { TALUKAS } from "@/lib/constants";
 
-const TOWNS = TALUKAS.map((name) => ({ name }));
+const TOWNS = TALUKAS.map((t) => ({ name: t.name, id: t.id }));
 
 export function AppSidebar() {
   return (

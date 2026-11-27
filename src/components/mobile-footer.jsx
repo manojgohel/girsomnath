@@ -2,16 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, PhoneCall, Calendar, ShoppingBag, Megaphone } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const NAV_ITEMS = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/directory", label: "Directory", icon: PhoneCall },
-  { href: "/events", label: "Events", icon: Calendar },
-  { href: "/market", label: "Market", icon: ShoppingBag },
-  { href: "/classifieds", label: "Classifieds", icon: Megaphone },
-];
+import { MOBILE_NAV_ITEMS as NAV_ITEMS } from "@/lib/constants";
 
 export function MobileFooter() {
   const pathname = usePathname();

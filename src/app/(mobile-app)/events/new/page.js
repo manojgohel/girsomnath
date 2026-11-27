@@ -24,17 +24,7 @@ import {
   ComboboxItem,
   ComboboxEmpty
 } from "@/components/ui/combobox";
-
-const EVENT_TAGS = ["Festival", "Exhibition", "Tour", "Workshop"];
-
-const EVENT_CATEGORIES = [
-  "Community & Culture",
-  "Agriculture",
-  "Tourism",
-  "Workshop",
-  "Sports & Youth",
-  "Religious"
-];
+import { TALUKAS, EVENT_TAGS, EVENT_CATEGORIES } from "@/lib/constants";
 
 export default function SubmitEventPage() {
   const router = useRouter();

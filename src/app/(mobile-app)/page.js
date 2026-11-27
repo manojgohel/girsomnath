@@ -21,64 +21,12 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { PwaInstallBanner } from "@/components/pwa-install-banner";
-import { TALUKAS } from "@/lib/constants";
-
-const CULTURAL_STATS = [
-  { label: "Jyotirlinga", value: "1st of 12", sub: "Somnath Mahadev" },
-  { label: "Gir Kesar", value: "GI-Tagged", sub: "Talala Mango Hub" },
-  { label: "Wildlife Home", value: "Asiatic Lion", sub: "Gir Forest Sanctuary" },
-  { label: "Coastline", value: "Arabian Sea", sub: "Port & Fisheries" }
-];
-
-const MAIN_MODULES = [
-  {
-    href: "/directory",
-    title: "Business Directory",
-    desc: "Vyapar, verified local services, clinics & shops",
-    badge: "Verified",
-    icon: PhoneCall,
-    iconColor: "text-amber-700 dark:text-amber-400",
-    gradient: "from-amber-500/15 via-orange-500/5 to-transparent",
-    borderHover: "hover:border-amber-500/50"
-  },
-  {
-    href: "/events",
-    title: "Utsav & Events",
-    desc: "Maha Shivratri, beach mela, aarti & mandal sabha",
-    badge: "Upcoming",
-    icon: Calendar,
-    iconColor: "text-orange-700 dark:text-orange-400",
-    gradient: "from-orange-500/15 via-red-500/5 to-transparent",
-    borderHover: "hover:border-orange-500/50"
-  },
-  {
-    href: "/market",
-    title: "Krishi & Market",
-    desc: "Kesar mango orchards, tractors, mandis & tools",
-    badge: "Rentals",
-    icon: ShoppingBag,
-    iconColor: "text-emerald-700 dark:text-emerald-400",
-    gradient: "from-emerald-500/15 via-amber-500/5 to-transparent",
-    borderHover: "hover:border-emerald-500/50"
-  },
-  {
-    href: "/classifieds",
-    title: "Classifieds & Rojgar",
-    desc: "District jobs, rental houses, factory & driver ads",
-    badge: "Active",
-    icon: Megaphone,
-    iconColor: "text-amber-800 dark:text-amber-300",
-    gradient: "from-amber-600/15 via-yellow-500/5 to-transparent",
-    borderHover: "hover:border-amber-600/50"
-  }
-];
-
-const EMERGENCY_NUMBERS = [
-  { label: "Police Control", number: "100", sub: "District HQ" },
-  { label: "Ambulance", number: "108", sub: "Emergency Medical" },
-  { label: "Fire Station", number: "101", sub: "Disaster / Fire" },
-  { label: "Gir Forest Rescue", number: "1926", sub: "Lion & Wildlife" }
-];
+import {
+  TALUKAS,
+  CULTURAL_STATS,
+  MAIN_MODULES,
+  EMERGENCY_NUMBERS,
+} from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -167,11 +115,11 @@ export default function Home() {
           <div className="flex flex-wrap gap-1">
             {TALUKAS.map((taluka) => (
               <Link
-                key={taluka}
-                href={`/directory?taluka=${encodeURIComponent(taluka)}`}
+                key={taluka.id}
+                href={`/directory?taluka=${encodeURIComponent(taluka.name)}`}
                 className="inline-flex items-center gap-1 rounded-lg border border-amber-600/30 bg-amber-500/5 px-2 py-0.5 text-[10.5px] font-semibold text-foreground transition-all hover:bg-amber-500/15 hover:border-amber-600/50 active:scale-95 shadow-2xs"
               >
-                <span>{taluka}</span>
+                <span>{taluka.name}</span>
               </Link>
             ))}
           </div>

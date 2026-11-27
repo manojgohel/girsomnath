@@ -21,13 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MARKET_DATA } from "@/lib/market-data";
-
-const MARKET_MENU = [
-  { id: "All", label: "All Items", icon: LayoutGrid, iconBg: "bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100" },
-  { id: "Buy", label: "Buy", icon: ShoppingBag, iconBg: "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400" },
-  { id: "Sell", label: "Sell", icon: Coins, iconBg: "bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400" },
-  { id: "Rent", label: "Rent", icon: KeyRound, iconBg: "bg-cyan-100 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400" }
-];
+import { MARKET_MENU } from "@/lib/constants";
 
 function MarketContent() {
   const searchParams = useSearchParams();

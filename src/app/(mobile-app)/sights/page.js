@@ -16,8 +16,7 @@ import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SIGHTS_DATA } from "@/lib/sights-data";
-
-const CATEGORIES = ["All", "Pilgrimage", "Wildlife", "Beach", "Culture"];
+import { SIGHTS_CATEGORIES as CATEGORIES } from "@/lib/constants";
 
 export default function SightsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");

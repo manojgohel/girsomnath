@@ -97,8 +97,9 @@ export async function getApprovedDirectoryAction({
       ];
     }
 
-    if (category && category !== "All" && category !== "All Categories") {
-      query.category = { $regex: new RegExp(`^${category}$`, "i") };
+    if (category && category.toLowerCase() !== "all" && category !== "All Categories") {
+      const sanitized = category.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[-_]/g, "[\\s-_]");
+      query.category = { $regex: new RegExp(`^${sanitized}`, "i") };
     }
 
     if (taluka && taluka !== "All Talukas") {
@@ -293,8 +294,9 @@ export async function getAllDirectoryAdminAction({
       query.status = status;
     }
 
-    if (category && category !== "All") {
-      query.category = { $regex: new RegExp(`^${category}$`, "i") };
+    if (category && category.toLowerCase() !== "all") {
+      const sanitized = category.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[-_]/g, "[\\s-_]");
+      query.category = { $regex: new RegExp(`^${sanitized}`, "i") };
     }
 
     if (taluka && taluka !== "All") {

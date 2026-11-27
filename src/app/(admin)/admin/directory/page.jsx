@@ -52,7 +52,11 @@ import {
   SheetDescription,
   SheetFooter,
 } from "@/components/ui/sheet";
-import { TALUKAS as TALUKA_OPTIONS } from "@/lib/constants";
+import {
+  TALUKAS as TALUKA_OPTIONS,
+  DIRECTORY_CATEGORY_OPTIONS as CATEGORIES,
+  STATUS_FILTERS,
+} from "@/lib/constants";
 import { OperatingHoursInput } from "@/components/operating-hours-input";
 import {
   getAllDirectoryAdminAction,
@@ -63,26 +67,6 @@ import {
   resolveSlugForNameAction,
   checkSlugAvailabilityAction,
 } from "@/actions/directory-actions";
-
-const CATEGORIES = [
-  "All",
-  "CA",
-  "Advocates",
-  "Shops",
-  "Medical Stores",
-  "Hospitals",
-  "Shopping Malls",
-  "Govt Offices",
-  "Garages",
-  "Temples",
-];
-
-const STATUS_FILTERS = [
-  { id: "All", label: "All Statuses" },
-  { id: "pending", label: "Pending" },
-  { id: "approved", label: "Approved" },
-  { id: "rejected", label: "Rejected" },
-];
 
 function AdminDirectoryContent() {
   const [data, setData] = useState({ items: [], total: 0, totalPages: 1 });
@@ -304,11 +288,16 @@ function AdminDirectoryContent() {
                   className="h-9.5 rounded-xl border border-input bg-card px-3 text-xs font-medium text-foreground outline-hidden focus:ring-2 focus:ring-ring"
                 >
                   <option value="All">All Categories</option>
-                  {CATEGORIES.filter((c) => c !== "All").map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
+                  {CATEGORIES.map((cat) => {
+                    const id = typeof cat === "object" ? cat.id : cat;
+                    const name = typeof cat === "object" ? cat.name : cat;
+                    if (id === "all" || name === "All") return null;
+                    return (
+                      <option key={id} value={name}>
+                        {name}
+                      </option>
+                    );
+                  })}
                 </select>
 
                 <select
@@ -321,8 +310,8 @@ function AdminDirectoryContent() {
                 >
                   <option value="All">All Talukas</option>
                   {TALUKA_OPTIONS.map((tal) => (
-                    <option key={tal} value={tal}>
-                      {tal}
+                    <option key={tal.id} value={tal.name}>
+                      {tal.name}
                     </option>
                   ))}
                 </select>
@@ -620,11 +609,16 @@ function AdminDirectoryContent() {
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     className="h-9 w-full rounded-xl border border-input bg-card px-3 text-xs"
                   >
-                    {CATEGORIES.filter((c) => c !== "All").map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
+                    {CATEGORIES.map((c) => {
+                      const id = typeof c === "object" ? c.id : c;
+                      const name = typeof c === "object" ? c.name : c;
+                      if (id === "all" || name === "All") return null;
+                      return (
+                        <option key={id} value={name}>
+                          {name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
 
@@ -638,8 +632,8 @@ function AdminDirectoryContent() {
                     className="h-9 w-full rounded-xl border border-input bg-card px-3 text-xs"
                   >
                     {TALUKA_OPTIONS.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
+                      <option key={t.id} value={t.name}>
+                        {t.name}
                       </option>
                     ))}
                   </select>

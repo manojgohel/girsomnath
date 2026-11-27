@@ -22,13 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EVENTS_DATA } from "@/lib/events-data";
-
-const EVENTS_MENU = [
-  { id: "All", label: "All Events", icon: LayoutGrid, iconBg: "bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100" },
-  { id: "Festival", label: "Festivals", icon: Sparkles, iconBg: "bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400" },
-  { id: "Exhibition", label: "Exhibition", icon: Presentation, iconBg: "bg-sky-100 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400" },
-  { id: "Tour", label: "Tours", icon: Compass, iconBg: "bg-teal-100 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400" }
-];
+import { EVENTS_MENU } from "@/lib/constants";
 
 function EventsContent() {
   const searchParams = useSearchParams();

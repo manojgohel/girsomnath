@@ -139,13 +139,13 @@ export function MobileHeader() {
 
           <div className="grid grid-cols-2 gap-2 pt-1 pb-2">
             {TALUKAS_LIST.map((taluka) => {
-              const active = selectedTaluka === taluka;
+              const active = selectedTaluka === taluka.name || selectedTaluka === taluka.id;
               return (
                 <Button
-                  key={taluka}
+                  key={taluka.id}
                   type="button"
                   variant={active ? "default" : "outline"}
-                  onClick={() => selectTaluka(taluka)}
+                  onClick={() => selectTaluka(taluka.name)}
                   className={`h-10 justify-between rounded-xl px-3 text-xs font-medium ${active
                       ? "shadow-xs"
                       : "border-border/80 bg-background hover:bg-muted"
@@ -153,7 +153,7 @@ export function MobileHeader() {
                 >
                   <span className="flex items-center gap-1.5 truncate">
                     <MapPin className={`size-3.5 shrink-0 ${active ? "text-primary-foreground" : "text-muted-foreground"}`} />
-                    <span className="truncate">{taluka}</span>
+                    <span className="truncate">{taluka.name}</span>
                   </span>
                   {active && <Check className="size-3.5 shrink-0" />}
                 </Button>

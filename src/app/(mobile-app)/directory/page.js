@@ -12,14 +12,6 @@ import {
   Plus,
   Calculator,
   Scale,
-  Store,
-  Pill,
-  Hospital,
-  Building2,
-  Landmark,
-  Wrench,
-  Flame,
-  LayoutGrid,
   CheckCircle2,
   Clock,
   ChevronLeft,
@@ -30,20 +22,8 @@ import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DIRECTORY_CATEGORIES } from "@/lib/constants";
 import { getApprovedDirectoryAction } from "@/actions/directory-actions";
-
-const DIRECTORY_CATEGORIES = [
-  { id: "All", label: "All", icon: LayoutGrid, iconBg: "bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100" },
-  { id: "CA", label: "CA", icon: Calculator, iconBg: "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400" },
-  { id: "Advocates", label: "Advocates", icon: Scale, iconBg: "bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400" },
-  { id: "Shops", label: "Shops", icon: Store, iconBg: "bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400" },
-  { id: "Medical Stores", label: "Medical Stores", icon: Pill, iconBg: "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400" },
-  { id: "Hospitals", label: "Hospitals", icon: Hospital, iconBg: "bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400" },
-  { id: "Shopping Malls", label: "Shopping Malls", icon: Building2, iconBg: "bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400" },
-  { id: "Govt Offices", label: "Govt Offices", icon: Landmark, iconBg: "bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300" },
-  { id: "Garages", label: "Garages", icon: Wrench, iconBg: "bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400" },
-  { id: "Temples", label: "Temples", icon: Flame, iconBg: "bg-yellow-100 dark:bg-yellow-950/60 text-yellow-700 dark:text-yellow-400" },
-];
 
 function DirectoryContent() {
   const searchParams = useSearchParams();
@@ -109,8 +89,9 @@ function DirectoryContent() {
         {DIRECTORY_CATEGORIES.map((item) => {
           const Icon = item.icon;
           const isSelected =
-            selectedCategory === item.id ||
-            (item.id === "All" && (!selectedCategory || selectedCategory === "All Categories"));
+            selectedCategory?.toLowerCase() === item.id.toLowerCase() ||
+            selectedCategory?.toLowerCase() === item.label?.toLowerCase() ||
+            (item.id.toLowerCase() === "all" && (!selectedCategory || selectedCategory.toLowerCase() === "all" || selectedCategory === "All Categories"));
 
           return (
             <button
