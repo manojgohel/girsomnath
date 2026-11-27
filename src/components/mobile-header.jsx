@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Sun,
   Moon,
@@ -34,12 +36,31 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { getCurrentUserAction } from "@/actions/auth-actions";
 
 export function MobileHeader() {
+  const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   const { selectedTaluka, isPickerOpen, setIsPickerOpen, selectTaluka } = useTaluka();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    async function checkAuth() {
+      const user = await getCurrentUserAction();
+      setCurrentUser(user);
+    }
+    checkAuth();
+  }, []);
 
   const isFiltered = selectedTaluka && selectedTaluka !== "All Talukas";
+
+  const handleProfileClick = () => {
+    if (currentUser) {
+      router.push("/profile");
+    } else {
+      router.push("/login?callbackUrl=/profile");
+    }
+  };
 
   return (
     <>
@@ -83,35 +104,24 @@ export function MobileHeader() {
               )}
             </Button>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                aria-label="User profile menu"
-                className="inline-flex size-8 shrink-0 items-center justify-center rounded-full hover:bg-muted outline-none transition-colors"
-              >
-                <Avatar className="size-7">
-                  <AvatarFallback className="bg-secondary text-foreground text-xs font-semibold">
-                    <User className="size-3.5" />
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel className="text-xs">My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-xs">
-                  <LogIn className="mr-2 size-3.5" /> Sign In / Register
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-xs">
-                  <PlusCircle className="mr-2 size-3.5" /> Post Classified Ad
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-xs">
-                  <BookmarkCheck className="mr-2 size-3.5" /> Saved Items
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-xs">
-                  <Settings className="mr-2 size-3.5" /> Preferences
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <button
+              type="button"
+              onClick={handleProfileClick}
+              aria-label="User profile"
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full hover:bg-muted outline-none transition-colors"
+            >
+              <Avatar className="size-7">
+                <AvatarFallback
+                  className={`text-xs font-semibold ${
+                    currentUser
+                      ? "bg-primary text-primary-foreground font-bold"
+                      : "bg-secondary text-foreground"
+                  }`}
+                >
+                  <User className="size-3.5" />
+                </AvatarFallback>
+              </Avatar>
+            </button>
           </div>
         </div>
       </header>

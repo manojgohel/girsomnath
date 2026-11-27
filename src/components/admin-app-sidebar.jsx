@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import {
   LayoutDashboard,
   Users,
@@ -8,7 +10,7 @@ import {
   Calendar,
   ShoppingBag,
   Megaphone,
-  Command
+  Command,
 } from "lucide-react";
 
 import { NavAdminMenu } from "@/components/nav-admin-menu";
@@ -20,6 +22,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 const data = {
@@ -69,12 +72,41 @@ const data = {
   ],
 };
 
+function AdminHeaderContent() {
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
+  return (
+    <SidebarHeader className="border-b p-2 overflow-hidden flex justify-center">
+      {isCollapsed ? (
+        <div className="flex h-9 w-full items-center justify-center">
+          <Link
+            href="/admin"
+            className="relative size-8 shrink-0 overflow-hidden rounded-xl border border-amber-600/30 bg-background shadow-xs hover:opacity-90"
+            title="Gir Somnath Admin"
+          >
+            <Image
+              src="/icons/icon-192x192.png"
+              alt="Gir Somnath Lion Emblem"
+              fill
+              className="object-cover"
+              sizes="32px"
+            />
+          </Link>
+        </div>
+      ) : (
+        <div className="w-full overflow-hidden">
+          <Logo showIcon href="/admin" tagline="Admin Control Panel" />
+        </div>
+      )}
+    </SidebarHeader>
+  );
+}
+
 export function AdminAppSidebar({ ...props }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="border-b p-2 group-data-[collapsible=icon]:p-2">
-        <Logo showIcon href="/admin" tagline="Admin Control Panel" collapsed />
-      </SidebarHeader>
+      <AdminHeaderContent />
       <SidebarContent>
         <NavAdminMenu items={data.navItems} />
       </SidebarContent>

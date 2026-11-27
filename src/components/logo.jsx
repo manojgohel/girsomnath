@@ -15,7 +15,7 @@ export function Logo({
   const isSm = size === "sm";
 
   const content = (
-    <div className={cn("flex items-center gap-2.5 min-w-0 overflow-hidden", className)}>
+    <div className={cn("flex items-center gap-2.5 min-w-0 max-w-full overflow-hidden", className)}>
       {showIcon && (
         <div className="relative size-9 shrink-0 overflow-hidden rounded-xl border border-amber-600/30 bg-background shadow-xs">
           <Image
@@ -29,11 +29,11 @@ export function Logo({
       )}
       <div
         className={cn(
-          "flex flex-col min-w-0 transition-opacity duration-200",
-          collapsed && "hidden group-data-[collapsible=icon]:hidden"
+          "flex flex-col min-w-0 overflow-hidden transition-opacity duration-200",
+          collapsed && "group-data-[collapsible=icon]:hidden"
         )}
       >
-        <div className="flex items-center gap-1 min-w-0">
+        <div className="flex items-center gap-1 min-w-0 overflow-hidden">
           <span
             className={cn(
               "font-heading font-bold tracking-tight text-foreground truncate whitespace-nowrap",
@@ -57,7 +57,7 @@ export function Logo({
 
   if (href) {
     return (
-      <Link href={href} className="inline-flex shrink-0 outline-none">
+      <Link href={href} className="inline-flex items-center shrink-0 max-w-full overflow-hidden outline-none">
         {content}
       </Link>
     );

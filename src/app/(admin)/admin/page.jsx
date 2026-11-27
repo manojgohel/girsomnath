@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { AdminAppSidebar } from "@/components/admin-app-sidebar";
 import {
   Breadcrumb,
@@ -19,7 +20,7 @@ import { MARKET_DATA } from "@/lib/market-data";
 import { ADS_DATA } from "@/lib/classifieds-data";
 import { SIGHTS_DATA } from "@/lib/sights-data";
 
-export default function AdminPage() {
+function AdminPageContent() {
   const stats = [
     { title: "Directory Listings", value: DIRECTORY_DATA.length, change: "Active merchants & services" },
     { title: "Upcoming Events", value: EVENTS_DATA.length, change: "District festivals & expos" },
@@ -30,7 +31,7 @@ export default function AdminPage() {
   ];
 
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={true}>
       <AdminAppSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b">
@@ -87,5 +88,19 @@ export default function AdminPage() {
         </div>
       </SidebarInset>
     </SidebarProvider>
+  );
+}
+
+export default function AdminPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center text-xs text-muted-foreground">
+          Loading dashboard...
+        </div>
+      }
+    >
+      <AdminPageContent />
+    </Suspense>
   );
 }

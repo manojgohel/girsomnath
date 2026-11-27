@@ -9,7 +9,10 @@ import {
   Phone,
   ShieldCheck,
   CheckCircle2,
-  UploadCloud
+  UploadCloud,
+  Loader2,
+  AlertCircle,
+  Link2,
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
@@ -22,9 +25,15 @@ import {
   ComboboxContent,
   ComboboxList,
   ComboboxItem,
-  ComboboxEmpty
+  ComboboxEmpty,
 } from "@/components/ui/combobox";
 import { TALUKAS as TALUKA_OPTIONS } from "@/lib/constants";
+import { OperatingHoursInput } from "@/components/operating-hours-input";
+import {
+  createDirectoryAction,
+  resolveSlugForNameAction,
+  checkSlugAvailabilityAction,
+} from "@/actions/directory-actions";
 
 const CATEGORY_OPTIONS = [
   "CA",
@@ -35,33 +44,83 @@ const CATEGORY_OPTIONS = [
   "Shopping Malls",
   "Govt Offices",
   "Garages",
-  "Temples"
+  "Temples",
 ];
 
 export default function AddContactPage() {
   const router = useRouter();
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [resultStatus, setResultStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [checkingSlug, setCheckingSlug] = useState(false);
+  const [slugStatus, setSlugStatus] = useState(null);
 
   const [formData, setFormData] = useState({
     name: "",
+    slug: "",
     category: "Shops",
+    taluka: "Veraval",
     town: "Veraval",
     phone: "",
     altPhone: "",
     whatsapp: "",
     email: "",
-    timing: "",
+    timing: "09:00 AM - 08:00 PM",
     address: "",
     description: "",
-    services: ""
+    services: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleNameBlur = async () => {
+    if (!formData.name.trim() || formData.slug) return;
+    setCheckingSlug(true);
+    const res = await resolveSlugForNameAction(formData.name);
+    setFormData((prev) => ({ ...prev, slug: res.slug }));
+    setSlugStatus(res.isUnique ? "available" : "assigned-nanoid");
+    setCheckingSlug(false);
+  };
+
+  const handleSlugBlur = async () => {
+    if (!formData.slug.trim()) return;
+    setCheckingSlug(true);
+    const res = await checkSlugAvailabilityAction(formData.slug);
+    if (res.available) {
+      setSlugStatus("available");
+    } else {
+      setFormData((prev) => ({ ...prev, slug: res.suggestedSlug }));
+      setSlugStatus("assigned-nanoid");
+    }
+    setCheckingSlug(false);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      router.push("/directory");
-    }, 1200);
+    setErrorMessage("");
+    setSubmitting(true);
+
+    try {
+      const res = await createDirectoryAction(
+        {
+          ...formData,
+          taluka: formData.taluka || formData.town || "Veraval",
+          town: formData.town || formData.taluka || "Veraval",
+        },
+        { fromAdmin: false }
+      );
+
+      if (res.success) {
+        setResultStatus("pending");
+        setTimeout(() => {
+          router.push("/directory");
+        }, 1800);
+      } else {
+        setErrorMessage(res.error || "Failed to submit listing");
+      }
+    } catch (err) {
+      setErrorMessage(err.message || "An unexpected error occurred");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -81,18 +140,27 @@ export default function AddContactPage() {
         icon={Building2}
       />
 
-      {submitted ? (
-        <Card className="p-6 border-border/80 bg-card text-center space-y-2 shadow-xs">
-          <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+      {resultStatus ? (
+        <Card className="p-6 border-border/80 bg-card text-center space-y-2.5 shadow-xs">
+          <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400">
             <CheckCircle2 className="size-6" />
           </div>
-          <h2 className="text-sm font-bold text-foreground">Contact Submitted Successfully</h2>
+          <h2 className="text-sm font-bold text-foreground">
+            Contact Submitted for Admin Approval
+          </h2>
           <p className="text-xs text-muted-foreground">
-            Your listing has been submitted for district verification. Redirecting...
+            Your listing has been submitted for verification. It will appear on the public directory once reviewed and approved by the admin panel.
           </p>
         </Card>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-3.5">
+          {errorMessage && (
+            <div className="flex items-center gap-2 rounded-xl bg-destructive/10 border border-destructive/20 p-3 text-xs text-destructive">
+              <AlertCircle className="size-4 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
           <Card className="p-4 border-border/80 bg-card shadow-xs space-y-3">
             <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
               <Building2 className="size-3.5 text-primary" /> Business / Professional Info
@@ -107,8 +175,47 @@ export default function AddContactPage() {
                 placeholder="e.g. Somnath Agro Equipment & Spares"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onBlur={handleNameBlur}
                 className="h-9.5 rounded-xl text-xs bg-muted/30 border-border/70"
               />
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-semibold text-foreground flex items-center gap-1">
+                  <Link2 className="size-3 text-primary" /> URL Slug
+                </label>
+                {checkingSlug ? (
+                  <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                    <Loader2 className="size-2.5 animate-spin" /> Checking availability...
+                  </span>
+                ) : slugStatus === "available" ? (
+                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+                    ✓ Available
+                  </span>
+                ) : slugStatus === "assigned-nanoid" ? (
+                  <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium">
+                    ✓ Made unique with ID
+                  </span>
+                ) : null}
+              </div>
+
+              <div className="flex items-center rounded-xl bg-muted/30 border border-border/70 px-3 text-xs text-muted-foreground focus-within:ring-2 focus-within:ring-primary/20">
+                <span className="shrink-0 select-none text-[11px]">/directory/</span>
+                <input
+                  type="text"
+                  placeholder="somnath-agro-equipment"
+                  value={formData.slug}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""),
+                    })
+                  }
+                  onBlur={handleSlugBlur}
+                  className="h-9.5 w-full bg-transparent text-xs text-foreground outline-hidden pl-1"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2.5">
@@ -140,8 +247,10 @@ export default function AddContactPage() {
                 <label className="text-xs font-semibold text-foreground">Taluka *</label>
                 <Combobox
                   items={TALUKA_OPTIONS}
-                  value={formData.town}
-                  onValueChange={(val) => val && setFormData({ ...formData, town: val })}
+                  value={formData.taluka}
+                  onValueChange={(val) =>
+                    val && setFormData({ ...formData, taluka: val, town: val })
+                  }
                 >
                   <ComboboxInput
                     placeholder="Select Taluka"
@@ -163,11 +272,9 @@ export default function AddContactPage() {
 
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-foreground">Operating Hours</label>
-              <Input
-                placeholder="e.g. 09:00 AM - 08:00 PM (Mon - Sat)"
+              <OperatingHoursInput
                 value={formData.timing}
-                onChange={(e) => setFormData({ ...formData, timing: e.target.value })}
-                className="h-9.5 rounded-xl text-xs bg-muted/30 border-border/70"
+                onChange={(val) => setFormData({ ...formData, timing: val })}
               />
             </div>
           </Card>
@@ -266,13 +373,21 @@ export default function AddContactPage() {
 
             <div className="rounded-xl border border-dashed border-border/80 bg-muted/20 p-4 text-center">
               <UploadCloud className="mx-auto size-7 text-muted-foreground/80 mb-1" />
-              <p className="text-xs font-semibold text-foreground">Upload Business Logo & Photos</p>
-              <p className="text-[10px] text-muted-foreground mt-0.5">PNG, JPG or SVG up to 5MB</p>
+              <p className="text-xs font-semibold text-foreground">Standard Listing Icon</p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">
+                Assigned automatically based on selected category
+              </p>
             </div>
           </Card>
 
-          <Button type="submit" size="default" className="w-full h-11 rounded-xl text-xs font-bold shadow-xs">
-            Submit Contact Listing
+          <Button
+            type="submit"
+            disabled={submitting}
+            size="default"
+            className="w-full h-11 rounded-xl text-xs font-bold shadow-xs gap-1.5"
+          >
+            {submitting && <Loader2 className="size-4 animate-spin" />}
+            {submitting ? "Submitting for Approval..." : "Submit Contact for Approval"}
           </Button>
         </form>
       )}
